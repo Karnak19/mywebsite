@@ -5,9 +5,7 @@ import Carte from "../components/MyCard.jsx";
 
 const Home = () => (
    <ResponsiveLayout>
-      <div className="row">
-         <Carte />
-      </div>
+      <Carte />
    </ResponsiveLayout>
 );
 
