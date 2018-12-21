@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./MyCard.module.css";
 import myAvatar from "../assets/images/avatar.png";
 
-class MyCard extends Component {
+class MyCard extends React.Component {
    state = {};
    render() {
       return (
@@ -21,18 +22,45 @@ class MyCard extends Component {
                   {/* TODO: Import npm fontawesome */}
                   <ul className={styles.icons}>
                      <li>
-                        <a href="#" className="fa-linkedin">
-                           Twitter
+                        <a href="https://github.com/Karnak19" target="_blank">
+                           <FontAwesomeIcon
+                              style={{
+                                 marginLeft: "-58px",
+                                 marginTop: "14px"
+                              }}
+                              icon={["fab", "github"]}
+                              size="2x"
+                           />
                         </a>
                      </li>
                      <li>
-                        <a href="#" className="fa-instagram">
-                           Instagram
+                        <a
+                           href="https://www.linkedin.com/in/basile-vernouillet"
+                           target="_blank"
+                        >
+                           <FontAwesomeIcon
+                              style={{
+                                 marginLeft: "-58px",
+                                 marginTop: "14px"
+                              }}
+                              icon={["fab", "linkedin-in"]}
+                              size="2x"
+                           />
                         </a>
                      </li>
                      <li>
-                        <a href="#" className="fa-github">
-                           Facebook
+                        <a
+                           href="https://www.instagram.com/basile_vern/"
+                           target="_blank"
+                        >
+                           <FontAwesomeIcon
+                              style={{
+                                 marginLeft: "-58px",
+                                 marginTop: "14px"
+                              }}
+                              icon={["fab", "instagram"]}
+                              size="2x"
+                           />
                         </a>
                      </li>
                   </ul>

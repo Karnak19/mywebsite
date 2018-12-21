@@ -75,6 +75,7 @@ ul.icons li {
 
 ul.icons li a {
    text-decoration: none;
+   color: #21262a;
    position: relative;
    display: block;
    width: 3.75em;
@@ -122,6 +123,7 @@ ul.icons li a:before {
 
 ul.icons li a:hover {
    border-color: #335a5a;
+   color: #335a5a;
 }
 
 @media screen and (max-width: 480px) {
