@@ -1,3 +1,12 @@
+@font-face {
+   font-family: champagne;
+   src: url("./assets/fonts/Champagne\ &\ Limousines.ttf");
+}
+
+html {
+   height: 100vh;
+}
+
 body {
    background-image: linear-gradient(
          60deg,
@@ -7,9 +16,24 @@ body {
       url("./assets/images/bg.jpg");
    height: 100%;
    background-size: cover;
+   text-transform: uppercase;
+   font-family: champagne;
 }
 
-ul {
+h1 {
+   font-size: 1.85rem;
+   letter-spacing: 0.1em;
+   margin: 0 0 0.525em 0;
+   color: #313f47;
+}
+
+p {
+   letter-spacing: 0.22em;
+   margin: 0 0 1.5em 0;
+   color: #313f47;
+}
+
+h1 ul {
    list-style: none;
 }
 
@@ -45,4 +69,50 @@ ul {
    to {
       transform: rotate(360deg);
    }
+}
+
+.App {
+   display: -moz-flex;
+   display: -webkit-flex;
+   display: -ms-flex;
+   display: flex;
+   -moz-align-items: center;
+   -webkit-align-items: center;
+   -ms-align-items: center;
+   align-items: center;
+   -moz-justify-content: space-between;
+   -webkit-justify-content: space-between;
+   -ms-justify-content: space-between;
+   justify-content: space-between;
+   -moz-flex-direction: column;
+   -webkit-flex-direction: column;
+   -ms-flex-direction: column;
+   flex-direction: column;
+   -moz-perspective: 1000px;
+   -webkit-perspective: 1000px;
+   -ms-perspective: 1000px;
+   perspective: 1000px;
+   position: relative;
+   min-height: 100%;
+   padding: 1.5em;
+   z-index: 2;
+}
+
+.App > * {
+   z-index: 1;
+}
+
+.App:before {
+   content: "";
+   display: block;
+}
+
+@media screen and (max-width: 360px) {
+   .App {
+      padding: 0.75em;
+   }
+}
+
+body.is-ie .App {
+   height: 100%;
 }

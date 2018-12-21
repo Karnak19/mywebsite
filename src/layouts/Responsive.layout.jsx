@@ -9,7 +9,7 @@ const ResponsiveLayout = ({ children }) => {
    return (
       <Fragment>
          {/* <NavBar /> */}
-         <div className="container-fluid">{children}</div>
+         {children}
          {/* <Footer /> */}
       </Fragment>
    );
