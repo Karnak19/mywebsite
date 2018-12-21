@@ -17,7 +17,6 @@ class MyCard extends React.Component {
                   <h1>Basile Vernouillet</h1>
                   <p>Junior Web Developper</p>
                </header>
-
                <footer>
                   {/* TODO: Import npm fontawesome */}
                   <ul className={styles.icons}>
@@ -64,6 +63,9 @@ class MyCard extends React.Component {
                         </a>
                      </li>
                   </ul>
+                  <a href="/BasileVdev.pdf" download>
+                     Get my CV
+                  </a>
                </footer>
             </section>
          </Fragment>
