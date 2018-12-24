@@ -59,6 +59,19 @@
    }
 }
 
+/* UL Buttons */
+ul.buttons {
+   cursor: default;
+   list-style: none;
+   padding-left: 0;
+   margin-top: -0.675em;
+}
+
+ul.buttons li {
+   display: inline-block;
+   padding: 0.675em 0.5em;
+}
+
 /* Icons */
 
 ul.icons {
@@ -130,4 +143,21 @@ ul.icons li a:hover {
    ul.icons li a:before {
       font-size: 1.5rem;
    }
+}
+
+h1 {
+   font-size: 1.85rem;
+   letter-spacing: 0.1em;
+   margin: 0 0 0.525em 0;
+   color: #313f47;
+}
+
+p {
+   letter-spacing: 0.22em;
+   margin: 0 0 1.5em 0;
+   color: #313f47;
+}
+
+h1 ul {
+   list-style: none;
 }

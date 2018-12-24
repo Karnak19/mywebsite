@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
 
-const Error = () => {
+const About = () => {
    return (
       <ResponsiveLayout>
          <div>
-            <Alert color="danger">
-               404 : not found.
+            <Alert color="success">
+               Coming soon...
                <hr />
                <Link to="/" className="alert-link">
                   Go back home !
@@ -20,4 +20,4 @@ const Error = () => {
    );
 };
 
-export default Error;
+export default About;

@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "reactstrap";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 import styles from "./MyCard.module.css";
 import myAvatar from "../assets/images/avatar.png";
+import TheModal from "./TheModal.jsx";
 
 class MyCard extends React.Component {
    state = {};
@@ -17,6 +20,21 @@ class MyCard extends React.Component {
                   <h1>Basile Vernouillet</h1>
                   <p>Junior Web Developper</p>
                </header>
+               <ul className={styles.buttons}>
+                  <li>
+                     <Link to="/about">
+                        <Button>About me</Button>
+                     </Link>
+                  </li>
+
+                  <li>
+                     <TheModal
+                        buttonLabel="Get my CV"
+                        color="success"
+                        className="col-xs-8"
+                     />
+                  </li>
+               </ul>
                <footer>
                   {/* TODO: Import npm fontawesome */}
                   <ul className={styles.icons}>
@@ -63,9 +81,6 @@ class MyCard extends React.Component {
                         </a>
                      </li>
                   </ul>
-                  <a href="/BasileVdev.pdf" download>
-                     Get my CV
-                  </a>
                </footer>
             </section>
          </Fragment>
