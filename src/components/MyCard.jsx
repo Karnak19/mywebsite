@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styles from "./MyCard.module.css";
 import myAvatar from "../assets/images/avatar.png";
+import TheModal from "./TheModal.jsx";
 
 class MyCard extends React.Component {
    state = {};
@@ -63,6 +64,7 @@ class MyCard extends React.Component {
                         </a>
                      </li>
                   </ul>
+                  <TheModal buttonLabel="Get my CVs" color="success" />
                   <a href="/BasileVdev.pdf" download>
                      Get my CV
                   </a>
