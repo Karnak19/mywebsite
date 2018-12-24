@@ -64,7 +64,11 @@ class MyCard extends React.Component {
                         </a>
                      </li>
                   </ul>
-                  <TheModal buttonLabel="Get my CVs" color="success" />
+                  <TheModal
+                     buttonLabel="Get my CVs"
+                     color="success"
+                     className="col-xs-8"
+                  />
                   <a href="/BasileVdev.pdf" download>
                      Get my CV
                   </a>

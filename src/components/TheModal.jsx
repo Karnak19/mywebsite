@@ -1,5 +1,7 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 
 class TheModal extends React.Component {
    constructor(props) {
@@ -31,20 +33,35 @@ class TheModal extends React.Component {
                isOpen={this.state.modal}
                toggle={this.toggle}
                className={this.props.className}
+               // style={{ width: 300 }}
             >
                <ModalHeader toggle={this.toggle}>My CVs</ModalHeader>
                <ModalBody
                   style={{
                      textAlign: "center",
-                     margin: 50,
-                     flexDirection: "row"
+                     margin: 50
                   }}
                >
-                  <form method="get" target="_blank" action="/BasileVdevFr.pdf">
-                     <Button type="submit">French CV</Button>
+                  <form
+                     method="get"
+                     target="_blank"
+                     action="/BasileVdevFr.pdf"
+                     style={{ margin: 10 }}
+                  >
+                     <Button type="submit">
+                        <FontAwesomeIcon icon={faFilePdf} size="1x" /> French CV
+                     </Button>
                   </form>
-                  <form method="get" target="_blank" action="/BasileVdevEn.pdf">
-                     <Button type="submit">English CV</Button>
+                  <form
+                     method="get"
+                     target="_blank"
+                     action="/BasileVdevEn.pdf"
+                     style={{ margin: 10 }}
+                  >
+                     <Button type="submit">
+                        <FontAwesomeIcon icon={faFilePdf} size="1x" /> English
+                        CV
+                     </Button>
                   </form>
                </ModalBody>
             </Modal>
