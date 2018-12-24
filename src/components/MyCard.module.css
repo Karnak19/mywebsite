@@ -59,6 +59,19 @@
    }
 }
 
+/* UL Buttons */
+ul.buttons {
+   cursor: default;
+   list-style: none;
+   padding-left: 0;
+   margin-top: -0.675em;
+}
+
+ul.buttons li {
+   display: inline-block;
+   padding: 0.675em 0.5em;
+}
+
 /* Icons */
 
 ul.icons {

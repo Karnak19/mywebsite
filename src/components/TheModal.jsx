@@ -22,18 +22,13 @@ class TheModal extends React.Component {
    render() {
       return (
          <div>
-            <Button
-               color={this.props.color}
-               onClick={this.toggle}
-               style={{ fontSize: 30 }}
-            >
+            <Button color={this.props.color} onClick={this.toggle}>
                {this.props.buttonLabel}
             </Button>
             <Modal
                isOpen={this.state.modal}
                toggle={this.toggle}
                className={this.props.className}
-               // style={{ width: 300 }}
             >
                <ModalHeader toggle={this.toggle}>My CVs</ModalHeader>
                <ModalBody
@@ -46,21 +41,20 @@ class TheModal extends React.Component {
                      method="get"
                      target="_blank"
                      action="/BasileVdevFr.pdf"
-                     style={{ margin: 10 }}
+                     style={{ padding: 10 }}
                   >
-                     <Button type="submit">
-                        <FontAwesomeIcon icon={faFilePdf} size="1x" /> French CV
+                     <Button color="primary" type="submit" block>
+                        <FontAwesomeIcon icon={faFilePdf} size="1x" /> French
                      </Button>
                   </form>
                   <form
                      method="get"
                      target="_blank"
                      action="/BasileVdevEn.pdf"
-                     style={{ margin: 10 }}
+                     style={{ padding: 10 }}
                   >
-                     <Button type="submit">
+                     <Button color="primary" type="submit" block disabled>
                         <FontAwesomeIcon icon={faFilePdf} size="1x" /> English
-                        CV
                      </Button>
                   </form>
                </ModalBody>
