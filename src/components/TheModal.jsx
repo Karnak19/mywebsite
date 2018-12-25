@@ -53,7 +53,7 @@ class TheModal extends React.Component {
                      action="/BasileVdevEn.pdf"
                      style={{ padding: 10 }}
                   >
-                     <Button color="primary" type="submit" block disabled>
+                     <Button color="primary" type="submit" block>
                         <FontAwesomeIcon icon={faFilePdf} size="1x" /> English
                      </Button>
                   </form>
