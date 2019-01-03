@@ -15,7 +15,7 @@ class MyCard extends React.Component {
             <section className={styles.main}>
                <header>
                   <span className={styles.avatar}>
-                     <img src={myAvatar} alt="" />
+                     <img src={myAvatar} alt="me" />
                   </span>
                   <h1>Basile Vernouillet</h1>
                   <p>Junior Web Developper</p>
@@ -36,7 +36,6 @@ class MyCard extends React.Component {
                   </li>
                </ul>
                <footer>
-                  {/* TODO: Import npm fontawesome */}
                   <ul className={styles.icons}>
                      <li>
                         <a href="https://github.com/Karnak19" target="_blank">

@@ -1,0 +1,13 @@
+.container {
+   background: #ffffffcc;
+   padding: 4.5em 3em 3em 3em;
+   border-radius: 4px;
+   cursor: default;
+   max-width: 90vw;
+   max-height: 80vh;
+   opacity: 0.95;
+   position: relative;
+   text-align: center;
+   width: 90vw;
+   height: 80vh;
+}
