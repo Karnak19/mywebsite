@@ -15,12 +15,18 @@ body {
       ),
       url("./assets/images/bg.jpg");
    height: 100%;
-   background-size: cover;
+   background-size: auto;
+   background-repeat: no-repeat;
+   background-position: center;
    text-transform: uppercase;
    font-family: champagne;
 }
 
-.App {
+body::-webkit-scrollbar {
+   display: none;
+}
+
+body::-moz- .App {
    text-align: center;
    min-height: 100vh;
 }
@@ -76,7 +82,7 @@ body {
    -ms-perspective: 1000px;
    perspective: 1000px;
    position: relative;
-   /* min-height: 100%; */
+   min-height: 100vh;
    padding: 1.5em;
    z-index: 2;
 }

@@ -17,7 +17,7 @@ class MyCard extends React.Component {
                   <span className={styles.avatar}>
                      <img src={myAvatar} alt="me" />
                   </span>
-                  <h1>Basile Vernouillet</h1>
+                  <h1 className={styles.hone}>Basile Vernouillet</h1>
                   <p>Junior Web Developper</p>
                </header>
                <ul className={styles.buttons}>

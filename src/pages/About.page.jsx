@@ -15,18 +15,6 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
 import styles from "./About.page.module.css";
 
-// const About = () => {
-//    return (
-//       <ResponsiveLayout>
-//          <section className={styles.container}>
-//             <h1>What do I love ?</h1>
-//          </section>
-//       </ResponsiveLayout>
-//    );
-// };
-
-// export default About;
-
 export default class About extends React.Component {
    constructor(props) {
       super(props);
@@ -35,8 +23,14 @@ export default class About extends React.Component {
       this.state = {
          activeTab: "1",
          tabs: [
-            { id: "1", label: "World of Warcraft" },
-            { id: "2", label: "Ice Hockey" }
+            {
+               id: "1",
+               label: "World of Warcraft",
+               imgLink: "./wow.png",
+               bg: ""
+            },
+            { id: "2", label: "Ice Hockey", imgLink: "" },
+            { id: "3", label: "Snowboard", imgLink: "" }
          ]
       };
    }
@@ -52,7 +46,7 @@ export default class About extends React.Component {
       return (
          <ResponsiveLayout>
             <section className={styles.container}>
-               <h1>What do I love ?</h1>
+               <h1>About me</h1>
                <Nav tabs>
                   {this.state.tabs.map(tabs => (
                      <NavItem>
@@ -70,11 +64,31 @@ export default class About extends React.Component {
                   ))}
                   {/* TODO: Fill this. Doing a map on this would be cool */}
                </Nav>
-               <TabContent activeTab={this.state.activeTab}>
-                  <TabPane tabId="1">
+               <TabContent
+                  activeTab={this.state.activeTab}
+                  style={{ overflowY: "auto", overflowX: "hidden" }}
+               >
+                  {this.state.tabs.map(tabs => (
+                     <TabPane
+                        id={tabs.label}
+                        tabId={tabs.id}
+                        className={styles.content}
+                        style={{
+                           backgroundImage: "../assets/images/alliance.png"
+                        }}
+                     >
+                        <Row>
+                           <Col sm="12">
+                              <h2>{tabs.label}</h2>
+                              <img src={tabs.imgLink} alt="image" />
+                           </Col>
+                        </Row>
+                     </TabPane>
+                  ))}
+                  {/* <TabPane tabId="1">
                      <Row>
                         <Col sm="12">
-                           <h4>Soon</h4>
+                           <h4>WoW</h4>
                         </Col>
                      </Row>
                   </TabPane>
@@ -85,7 +99,7 @@ export default class About extends React.Component {
                         </Col>
                         <Col sm="6" />
                      </Row>
-                  </TabPane>
+                  </TabPane> */}
                </TabContent>
             </section>
          </ResponsiveLayout>
