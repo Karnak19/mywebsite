@@ -38,7 +38,7 @@ export default class About extends React.Component {
          ],
          raiderIo: [],
          bestRuns: [],
-         myProgress: [],
+         myUldirProgress: [],
          isPending: false,
          isError: false
       };
@@ -65,7 +65,6 @@ export default class About extends React.Component {
                bestRuns: response.data.mythic_plus_best_runs,
                isPending: false
             });
-            console.log(response.data.mythic_plus_best_runs);
          })
          .catch(() => this.setState({ isError: true }));
       axios
@@ -75,10 +74,9 @@ export default class About extends React.Component {
          )
          .then(response => {
             this.setState({
-               myProgress: response.data.raid_progression,
+               myUldirProgress: response.data.raid_progression.uldir,
                isPending: false
             });
-            console.log(response.data.raid_progression);
          })
          .catch(() => this.setState({ isError: true }));
    }
@@ -140,48 +138,93 @@ export default class About extends React.Component {
                                  href={this.state.raiderIo.profile_url}
                                  target="_blank"
                                  rel="noopener noreferrer"
+                                 style={{ fontSize: "1.4rem" }}
                               >
                                  {this.state.raiderIo.name}
                               </a>
                            </li>
                            <li>
-                              <img
-                                 src={this.state.raiderIo.thumbnail_url}
-                                 alt={this.state.raiderIo.name}
-                              />
+                              <a
+                                 href={this.state.raiderIo.profile_url}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                              >
+                                 <img
+                                    src={this.state.raiderIo.thumbnail_url}
+                                    alt={this.state.raiderIo.name}
+                                 />
+                              </a>
                            </li>
                            <li>
                               {this.state.raiderIo.race}{" "}
                               {this.state.raiderIo.class}
                            </li>
                            <li>{this.state.raiderIo.faction} proud !</li>
-                           <Progress
-                              animated
-                              className={styles.progress}
-                              value="7"
-                              max="8"
-                              size="3"
-                           >
-                              Mythic Uldir : 7/8
-                           </Progress>
-                           <Row style={{ marginTop: "20px" }}>
-                              {this.state.bestRuns.map((runs, i) => (
-                                 <Col sm="4" key={i}>
-                                    <Card body>
-                                       <CardTitle>
-                                          <a
-                                             href={runs.url}
-                                             target="_blank"
-                                             rel="noopener norefferer"
-                                          >
-                                             {runs.dungeon} {runs.mythic_level}
-                                          </a>
-                                       </CardTitle>
-                                       <CardText>Score : {runs.score}</CardText>
-                                    </Card>
-                                 </Col>
-                              ))}
-                           </Row>
+                           <Card body>
+                              <CardTitle>
+                                 <h4>
+                                    <span href="#" id="bfa">
+                                       Battle for Azeroth
+                                    </span>{" "}
+                                    <span href="#" id="raid">
+                                       Progression
+                                    </span>
+                                 </h4>
+                              </CardTitle>
+                              <CardText>
+                                 <Progress
+                                    animated
+                                    className={styles.progress}
+                                    value={
+                                       this.state.myUldirProgress
+                                          .mythic_bosses_killed
+                                    }
+                                    max={
+                                       this.state.myUldirProgress.total_bosses
+                                    }
+                                 >
+                                    Uldir : {this.state.myUldirProgress.summary}
+                                 </Progress>
+                              </CardText>
+                           </Card>
+                           <Card body>
+                              <CardTitle>
+                                 <h4>
+                                    My best{" "}
+                                    <span href="#" id="mplus">
+                                       Mythic+
+                                    </span>{" "}
+                                    runs
+                                 </h4>
+                              </CardTitle>
+                              <Row>
+                                 {this.state.bestRuns.map((runs, i) => (
+                                    <Col
+                                       sm={{ size: 8, offset: 2 }}
+                                       xs="12"
+                                       lg="4"
+                                       key={i}
+                                    >
+                                       <Card body>
+                                          <CardTitle>
+                                             <a
+                                                href={runs.url}
+                                                target="_blank"
+                                                rel="noopener norefferer"
+                                             >
+                                                {runs.dungeon}
+                                                {" +"}
+                                                {runs.mythic_level}
+                                             </a>
+                                          </CardTitle>
+                                          <CardText>
+                                             Score : {runs.score}
+                                          </CardText>
+                                       </Card>
+                                    </Col>
+                                 ))}
+                              </Row>
+                           </Card>
                         </Col>
                      </Row>
                   </TabPane>
@@ -205,6 +248,24 @@ export default class About extends React.Component {
             <UncontrolledTooltip placement="bottom" target="pveTooltip">
                Player versus Environment : Fighting monsters (which are bots in
                fact), alone or in group.
+            </UncontrolledTooltip>
+            <UncontrolledTooltip placement="bottom" target="bfa">
+               Battle For Azeroth is the lattest version of World of Warcraft,
+               released the 08/14/18
+            </UncontrolledTooltip>
+            <UncontrolledTooltip placement="bottom" target="mplus">
+               Mythic+ is a recent exciting thing in World of Warcraft. It is a
+               new mode of content that offers players an endlessly scaling
+               challenge in 5-player dungeons. It can be really challenging and
+               good if you don't have 19 people to play with ! Depending on the
+               dungeon, the time you used to complete it and the key difficulty,
+               it gives you points !
+            </UncontrolledTooltip>
+            <UncontrolledTooltip placement="bottom" target="raid">
+               The term progression mean the number of boss of the actual raid
+               you have killed with your group. A raid is a huge 20-man
+               instanced zone where there is several bosses (in general between
+               6 and 14).
             </UncontrolledTooltip>
          </ResponsiveLayout>
       );

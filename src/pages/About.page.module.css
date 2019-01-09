@@ -23,7 +23,7 @@
 }
 
 span {
-   text-decoration: dotted underline;
+   text-decoration: dotted underline #838383cc;
 }
 
 .container a {
