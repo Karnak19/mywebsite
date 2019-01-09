@@ -3,13 +3,15 @@
    padding: 4.5em 3em 3em 3em;
    border-radius: 4px;
    cursor: default;
-   max-width: 90vw;
+   max-width: 95vw;
    /* max-height: 80vh; */
    opacity: 0.95;
    position: relative;
    text-align: center;
-   width: 90vw;
+   width: 95vw;
    /* height: 80vh; */
+   list-style: none;
+   text-decoration: none;
 }
 
 .content {
@@ -18,4 +20,18 @@
    background-size: cover;
    background-position: center;
    min-height: 50vh;
+}
+
+span {
+   text-decoration: dotted underline;
+}
+
+.container a {
+   font-weight: bold;
+}
+
+.progress {
+   height: 2rem;
+   font-size: 1rem;
+   background-color: rgb(131, 131, 131);
 }
