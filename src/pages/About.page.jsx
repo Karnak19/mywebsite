@@ -5,12 +5,17 @@ import {
    Nav,
    NavItem,
    NavLink,
-   Button,
    Row,
-   Col
+   Col,
+   UncontrolledTooltip,
+   Progress,
+   Card,
+   CardText,
+   CardTitle
 } from "reactstrap";
 import classnames from "classnames";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import axios from "axios";
 
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
 import styles from "./About.page.module.css";
@@ -21,17 +26,21 @@ export default class About extends React.Component {
 
       this.toggle = this.toggle.bind(this);
       this.state = {
+         tooltipOpen: false,
          activeTab: "1",
          tabs: [
             {
                id: "1",
-               label: "World of Warcraft",
-               imgLink: "./wow.png",
-               bg: ""
+               label: "World of Warcraft"
             },
             { id: "2", label: "Ice Hockey", imgLink: "" },
             { id: "3", label: "Snowboard", imgLink: "" }
-         ]
+         ],
+         raiderIo: [],
+         bestRuns: [],
+         myUldirProgress: [],
+         isPending: false,
+         isError: false
       };
    }
 
@@ -42,7 +51,40 @@ export default class About extends React.Component {
          });
       }
    }
+
+   componentDidMount() {
+      this.setState({ isPending: true });
+      axios
+         .get(
+            "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs",
+            { headers: { Accept: "application/json" } }
+         )
+         .then(response => {
+            this.setState({
+               raiderIo: response.data,
+               bestRuns: response.data.mythic_plus_best_runs,
+               isPending: false
+            });
+         })
+         .catch(() => this.setState({ isError: true }));
+      axios
+         .get(
+            "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=raid_progression",
+            { headers: { Accept: "application/json" } }
+         )
+         .then(response => {
+            this.setState({
+               myUldirProgress: response.data.raid_progression.uldir,
+               isPending: false
+            });
+         })
+         .catch(() => this.setState({ isError: true }));
+   }
+
    render() {
+      if (this.state.isPending) {
+         return <ResponsiveLayout>Fancy spinner here</ResponsiveLayout>;
+      }
       return (
          <ResponsiveLayout>
             <section className={styles.container}>
@@ -68,27 +110,121 @@ export default class About extends React.Component {
                   activeTab={this.state.activeTab}
                   style={{ overflowY: "auto", overflowX: "hidden" }}
                >
-                  {this.state.tabs.map(tabs => (
-                     <TabPane
-                        id={tabs.label}
-                        tabId={tabs.id}
-                        className={styles.content}
-                        style={{
-                           backgroundImage: "../assets/images/alliance.png"
-                        }}
-                     >
-                        <Row>
-                           <Col sm="12">
-                              <h2>{tabs.label}</h2>
-                              <img src={tabs.imgLink} alt="image" />
-                           </Col>
-                        </Row>
-                     </TabPane>
-                  ))}
-                  {/* <TabPane tabId="1">
+                  <TabPane id="1" tabId="1" className={styles.content}>
                      <Row>
-                        <Col sm="12">
-                           <h4>WoW</h4>
+                        <Col lg="4" sm="12" xs="12">
+                           <p>
+                              World of Warcraft is a great game. I mostly enjoy
+                              the End-game content, particularly{" "}
+                              <span href="#" id="pveTooltip">
+                                 PvE
+                              </span>
+                              . In End-game PvE, you need a lot of teamwork, to
+                              make a 20-man team cooperate in the same way.
+                              Being selfish does not work in this environment,
+                              as every player here will play a huge role to
+                              defeat each bosses.
+                           </p>
+                        </Col>
+                        <Col
+                           lg="8"
+                           sm="12"
+                           xs="12"
+                           style={{ listStyle: "none" }}
+                        >
+                           <h3>My Character :</h3>
+                           <li>
+                              <a
+                                 href={this.state.raiderIo.profile_url}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                                 style={{ fontSize: "1.4rem" }}
+                              >
+                                 {this.state.raiderIo.name}
+                              </a>
+                           </li>
+                           <li>
+                              <a
+                                 href={this.state.raiderIo.profile_url}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                              >
+                                 <img
+                                    src={this.state.raiderIo.thumbnail_url}
+                                    alt={this.state.raiderIo.name}
+                                 />
+                              </a>
+                           </li>
+                           <li>
+                              {this.state.raiderIo.race}{" "}
+                              {this.state.raiderIo.class}
+                           </li>
+                           <li>{this.state.raiderIo.faction} proud !</li>
+                           <Card body>
+                              <CardTitle>
+                                 <h4>
+                                    <span href="#" id="bfa">
+                                       Battle for Azeroth
+                                    </span>{" "}
+                                    <span href="#" id="raid">
+                                       Progression
+                                    </span>
+                                 </h4>
+                              </CardTitle>
+                              <CardText>
+                                 <Progress
+                                    animated
+                                    className={styles.progress}
+                                    value={
+                                       this.state.myUldirProgress
+                                          .mythic_bosses_killed
+                                    }
+                                    max={
+                                       this.state.myUldirProgress.total_bosses
+                                    }
+                                 >
+                                    Uldir : {this.state.myUldirProgress.summary}
+                                 </Progress>
+                              </CardText>
+                           </Card>
+                           <Card body>
+                              <CardTitle>
+                                 <h4>
+                                    My best{" "}
+                                    <span href="#" id="mplus">
+                                       Mythic+
+                                    </span>{" "}
+                                    runs
+                                 </h4>
+                              </CardTitle>
+                              <Row>
+                                 {this.state.bestRuns.map((runs, i) => (
+                                    <Col
+                                       sm={{ size: 8, offset: 2 }}
+                                       xs="12"
+                                       lg="4"
+                                       key={i}
+                                    >
+                                       <Card body>
+                                          <CardTitle>
+                                             <a
+                                                href={runs.url}
+                                                target="_blank"
+                                                rel="noopener norefferer"
+                                             >
+                                                {runs.dungeon}
+                                                {" +"}
+                                                {runs.mythic_level}
+                                             </a>
+                                          </CardTitle>
+                                          <CardText>
+                                             Score : {runs.score}
+                                          </CardText>
+                                       </Card>
+                                    </Col>
+                                 ))}
+                              </Row>
+                           </Card>
                         </Col>
                      </Row>
                   </TabPane>
@@ -97,11 +233,40 @@ export default class About extends React.Component {
                         <Col sm="12">
                            <h4>Soon</h4>
                         </Col>
+                     </Row>
+                  </TabPane>
+                  <TabPane tabId="3">
+                     <Row>
+                        <Col sm="12">
+                           <h4>Soon</h4>
+                        </Col>
                         <Col sm="6" />
                      </Row>
-                  </TabPane> */}
+                  </TabPane>
                </TabContent>
             </section>
+            <UncontrolledTooltip placement="bottom" target="pveTooltip">
+               Player versus Environment : Fighting monsters (which are bots in
+               fact), alone or in group.
+            </UncontrolledTooltip>
+            <UncontrolledTooltip placement="bottom" target="bfa">
+               Battle For Azeroth is the lattest version of World of Warcraft,
+               released the 08/14/18
+            </UncontrolledTooltip>
+            <UncontrolledTooltip placement="bottom" target="mplus">
+               Mythic+ is a recent exciting thing in World of Warcraft. It is a
+               new mode of content that offers players an endlessly scaling
+               challenge in 5-player dungeons. It can be really challenging and
+               good if you don't have 19 people to play with ! Depending on the
+               dungeon, the time you used to complete it and the key difficulty,
+               it gives you points !
+            </UncontrolledTooltip>
+            <UncontrolledTooltip placement="bottom" target="raid">
+               The term progression mean the number of boss of the actual raid
+               you have killed with your group. A raid is a huge 20-man
+               instanced zone where there is several bosses (in general between
+               6 and 14).
+            </UncontrolledTooltip>
          </ResponsiveLayout>
       );
    }
