@@ -226,7 +226,11 @@ export default class About extends React.Component {
                               </CardTitle>
                               <Row>
                                  {this.state.bestRuns.map((runs, i) => (
-                                    <Col xs="12" lg="4" key={i}>
+                                    <Col
+                                       xs="12"
+                                       lg={{ size: 8, offset: 2 }}
+                                       key={i}
+                                    >
                                        <Card inverse>
                                           {this.state.dungeonPics.map(
                                              (pics, u) => {
