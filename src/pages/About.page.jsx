@@ -11,7 +11,9 @@ import {
    Progress,
    Card,
    CardText,
-   CardTitle
+   CardTitle,
+   CardImg,
+   CardImgOverlay
 } from "reactstrap";
 import classnames from "classnames";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
@@ -34,10 +36,22 @@ export default class About extends React.Component {
                label: "World of Warcraft"
             },
             { id: "2", label: "Ice Hockey", imgLink: "" },
-            { id: "3", label: "Snowboard", imgLink: "" }
+            { id: "3", label: "ReactJS", imgLink: "" }
          ],
          raiderIo: [],
          bestRuns: [],
+         dungeonPics: [
+            { name: "AD", link: "../images/dungeons/AD.jpg" },
+            { name: "FH", link: "../images/dungeons/FH.jpg" },
+            { name: "KR", link: "../images/dungeons/KR.jpg" },
+            { name: "ML", link: "../images/dungeons/ML.jpg" },
+            { name: "SIEGE", link: "../images/dungeons/SIEGE.jpg" },
+            { name: "SOTS", link: "../images/dungeons/SOTS.jpg" },
+            { name: "TD", link: "../images/dungeons/TD.jpg" },
+            { name: "TOS", link: "../images/dungeons/TOS.jpg" },
+            { name: "UNDR", link: "../images/dungeons/UNDR.jpg" },
+            { name: "WM", link: "../images/dungeons/WM.jpg" }
+         ],
          myUldirProgress: [],
          isPending: false,
          isError: false
@@ -65,6 +79,7 @@ export default class About extends React.Component {
                bestRuns: response.data.mythic_plus_best_runs,
                isPending: false
             });
+            console.log(this.state.bestRuns);
          })
          .catch(() => this.setState({ isError: true }));
       axios
@@ -82,6 +97,18 @@ export default class About extends React.Component {
    }
 
    render() {
+      // const dungeonPics = [
+      //    { name: "TD", link: "../assets/images/TD.jpg" },
+      //    { name: "FH", link: "../assets/images/FH.jpg" },
+      //    { name: "TOS", link: "../assets/images/TOS.jpg" },
+      //    { name: "AD", link: "../assets/images/AD.jpg" },
+      //    { name: "KR", link: "../assets/images/KR.jpg" },
+      //    { name: "ML", link: "../assets/images/ML.jpg" },
+      //    { name: "SIEGE", link: "../assets/images/SIEGE.jpg" },
+      //    { name: "SOTS", link: "../assets/images/SOTS.jpg" },
+      //    { name: "UNDR", link: "../assets/images/UNDR.jpg" },
+      //    { name: "WM", link: "../assets/images/WM.jpg" }
+      // ];
       if (this.state.isPending) {
          return <ResponsiveLayout>Fancy spinner here</ResponsiveLayout>;
       }
@@ -91,7 +118,7 @@ export default class About extends React.Component {
                <h1>About me</h1>
                <Nav tabs>
                   {this.state.tabs.map(tabs => (
-                     <NavItem>
+                     <NavItem className="col-lg-4">
                         <NavLink
                            className={classnames({
                               active: this.state.activeTab === tabs.id
@@ -200,26 +227,43 @@ export default class About extends React.Component {
                               <Row>
                                  {this.state.bestRuns.map((runs, i) => (
                                     <Col
-                                       sm={{ size: 8, offset: 2 }}
                                        xs="12"
-                                       lg="4"
+                                       lg={{ size: 8, offset: 2 }}
                                        key={i}
                                     >
-                                       <Card body>
-                                          <CardTitle>
-                                             <a
-                                                href={runs.url}
-                                                target="_blank"
-                                                rel="noopener norefferer"
-                                             >
-                                                {runs.dungeon}
-                                                {" +"}
-                                                {runs.mythic_level}
-                                             </a>
-                                          </CardTitle>
-                                          <CardText>
-                                             Score : {runs.score}
-                                          </CardText>
+                                       <Card inverse>
+                                          {this.state.dungeonPics.map(
+                                             (pics, u) => {
+                                                if (
+                                                   runs.short_name === pics.name
+                                                ) {
+                                                   return (
+                                                      <CardImg
+                                                         width="100%"
+                                                         src={pics.link}
+                                                      />
+                                                   );
+                                                }
+                                             }
+                                          )}
+                                          <CardImgOverlay
+                                             className={styles.overlay}
+                                          >
+                                             <CardTitle>
+                                                <a
+                                                   href={runs.url}
+                                                   target="_blank"
+                                                   rel="noopener norefferer"
+                                                >
+                                                   {runs.dungeon}
+                                                   {" +"}
+                                                   {runs.mythic_level}
+                                                </a>
+                                             </CardTitle>
+                                             <CardText>
+                                                Score : {runs.score}
+                                             </CardText>
+                                          </CardImgOverlay>
                                        </Card>
                                     </Col>
                                  ))}
