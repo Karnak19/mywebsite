@@ -21,7 +21,6 @@ import axios from "axios";
 
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
 import styles from "./About.page.module.css";
-import TD from "../assets/images/dungeons/TOS.jpg";
 
 export default class About extends React.Component {
    constructor(props) {
@@ -41,18 +40,18 @@ export default class About extends React.Component {
          ],
          raiderIo: [],
          bestRuns: [],
-         // dungeonPics: [
-         //    { name: "TD", link: "../assets/images/TD.jpg" },
-         //    { name: "FH", link: "../assets/images/FH.jpg" },
-         //    { name: "TOS", link: "../assets/images/TOS.jpg" },
-         //    { name: "AD", link: "../assets/images/AD.jpg" },
-         //    { name: "KR", link: "../assets/images/KR.jpg" },
-         //    { name: "ML", link: "../assets/images/ML.jpg" },
-         //    { name: "SIEGE", link: "../assets/images/SIEGE.jpg" },
-         //    { name: "SOTS", link: "../assets/images/SOTS.jpg" },
-         //    { name: "UNDR", link: "../assets/images/UNDR.jpg" },
-         //    { name: "WM", link: "../assets/images/WM.jpg" }
-         // ],
+         dungeonPics: [
+            { name: "AD", link: "../images/dungeons/AD.jpg" },
+            { name: "FH", link: "../images/dungeons/FH.jpg" },
+            { name: "KR", link: "../images/dungeons/KR.jpg" },
+            { name: "ML", link: "../images/dungeons/ML.jpg" },
+            { name: "SIEGE", link: "../images/dungeons/SIEGE.jpg" },
+            { name: "SOTS", link: "../images/dungeons/SOTS.jpg" },
+            { name: "TD", link: "../images/dungeons/TD.jpg" },
+            { name: "TOS", link: "../images/dungeons/TOS.jpg" },
+            { name: "UNDR", link: "../images/dungeons/UNDR.jpg" },
+            { name: "WM", link: "../images/dungeons/WM.jpg" }
+         ],
          myUldirProgress: [],
          isPending: false,
          isError: false
@@ -98,7 +97,7 @@ export default class About extends React.Component {
    }
 
    render() {
-      // const dungeonPics= [
+      // const dungeonPics = [
       //    { name: "TD", link: "../assets/images/TD.jpg" },
       //    { name: "FH", link: "../assets/images/FH.jpg" },
       //    { name: "TOS", link: "../assets/images/TOS.jpg" },
@@ -227,14 +226,22 @@ export default class About extends React.Component {
                               </CardTitle>
                               <Row>
                                  {this.state.bestRuns.map((runs, i) => (
-                                    <Col
-                                       xs="12"
-                                       lg="4
-                                    "
-                                       key={i}
-                                    >
+                                    <Col xs="12" lg="4" key={i}>
                                        <Card inverse>
-                                          <CardImg width="100%" src={TD} />
+                                          {this.state.dungeonPics.map(
+                                             (pics, u) => {
+                                                if (
+                                                   runs.short_name === pics.name
+                                                ) {
+                                                   return (
+                                                      <CardImg
+                                                         width="100%"
+                                                         src={pics.link}
+                                                      />
+                                                   );
+                                                }
+                                             }
+                                          )}
                                           <CardImgOverlay
                                              className={styles.overlay}
                                           >
