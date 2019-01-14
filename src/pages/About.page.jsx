@@ -53,6 +53,7 @@ export default class About extends React.Component {
             { name: "WM", link: "../images/dungeons/WM.jpg" }
          ],
          myUldirProgress: [],
+         myBoDProgress: [],
          isPending: false,
          isError: false
       };
@@ -97,18 +98,6 @@ export default class About extends React.Component {
    }
 
    render() {
-      // const dungeonPics = [
-      //    { name: "TD", link: "../assets/images/TD.jpg" },
-      //    { name: "FH", link: "../assets/images/FH.jpg" },
-      //    { name: "TOS", link: "../assets/images/TOS.jpg" },
-      //    { name: "AD", link: "../assets/images/AD.jpg" },
-      //    { name: "KR", link: "../assets/images/KR.jpg" },
-      //    { name: "ML", link: "../assets/images/ML.jpg" },
-      //    { name: "SIEGE", link: "../assets/images/SIEGE.jpg" },
-      //    { name: "SOTS", link: "../assets/images/SOTS.jpg" },
-      //    { name: "UNDR", link: "../assets/images/UNDR.jpg" },
-      //    { name: "WM", link: "../assets/images/WM.jpg" }
-      // ];
       if (this.state.isPending) {
          return <ResponsiveLayout>Fancy spinner here</ResponsiveLayout>;
       }
@@ -131,62 +120,48 @@ export default class About extends React.Component {
                         </NavLink>
                      </NavItem>
                   ))}
-                  {/* TODO: Fill this. Doing a map on this would be cool */}
                </Nav>
-               <TabContent
-                  activeTab={this.state.activeTab}
-                  style={{ overflowY: "auto", overflowX: "hidden" }}
-               >
+               <TabContent activeTab={this.state.activeTab} style={{ overflowY: "auto", overflowX: "hidden" }}>
                   <TabPane id="1" tabId="1" className={styles.content}>
                      <Row>
-                        <Col lg="4" sm="12" xs="12">
+                        <Col lg="6" sm="12" xs="12">
                            <p>
-                              World of Warcraft is a great game. I mostly enjoy
-                              the End-game content, particularly{" "}
+                              World of Warcraft is a great game. I mostly enjoy the End-game content, particularly{" "}
                               <span href="#" id="pveTooltip">
                                  PvE
                               </span>
-                              . In End-game PvE, you need a lot of teamwork, to
-                              make a 20-man team cooperate in the same way.
-                              Being selfish does not work in this environment,
-                              as every player here will play a huge role to
-                              defeat each bosses.
+                              . In End-game PvE, you need a lot of teamwork, to make a 20-man team cooperate in the same
+                              way. Being selfish does not work in this environment, as every player here will play a
+                              huge role to defeat each bosses.
                            </p>
                         </Col>
-                        <Col
-                           lg="8"
-                           sm="12"
-                           xs="12"
-                           style={{ listStyle: "none" }}
-                        >
-                           <h3>My Character :</h3>
-                           <li>
-                              <a
-                                 href={this.state.raiderIo.profile_url}
-                                 target="_blank"
-                                 rel="noopener noreferrer"
-                                 style={{ fontSize: "1.4rem" }}
-                              >
-                                 {this.state.raiderIo.name}
-                              </a>
-                           </li>
-                           <li>
-                              <a
-                                 href={this.state.raiderIo.profile_url}
-                                 target="_blank"
-                                 rel="noopener noreferrer"
-                              >
-                                 <img
-                                    src={this.state.raiderIo.thumbnail_url}
-                                    alt={this.state.raiderIo.name}
-                                 />
-                              </a>
-                           </li>
-                           <li>
-                              {this.state.raiderIo.race}{" "}
-                              {this.state.raiderIo.class}
-                           </li>
-                           <li>{this.state.raiderIo.faction} proud !</li>
+                        <Col lg="6" sm="12" xs="12" style={{ listStyle: "none" }}>
+                           <Card body>
+                              <CardTitle>
+                                 <h4>My Character :</h4>
+                                 <li>
+                                    <a
+                                       href={this.state.raiderIo.profile_url}
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       style={{ fontSize: "1.4rem" }}
+                                    >
+                                       {this.state.raiderIo.name}
+                                    </a>
+                                 </li>
+                              </CardTitle>
+                              <li>
+                                 <a href={this.state.raiderIo.profile_url} target="_blank" rel="noopener noreferrer">
+                                    <img src={this.state.raiderIo.thumbnail_url} alt={this.state.raiderIo.name} />
+                                 </a>
+                              </li>
+                              <CardText>
+                                 <li>
+                                    {this.state.raiderIo.race} {this.state.raiderIo.class}
+                                 </li>
+                                 <li>{this.state.raiderIo.faction} proud !</li>
+                              </CardText>
+                           </Card>
                            <Card body>
                               <CardTitle>
                                  <h4>
@@ -202,15 +177,19 @@ export default class About extends React.Component {
                                  <Progress
                                     animated
                                     className={styles.progress}
-                                    value={
-                                       this.state.myUldirProgress
-                                          .mythic_bosses_killed
-                                    }
-                                    max={
-                                       this.state.myUldirProgress.total_bosses
-                                    }
+                                    value={this.state.myUldirProgress.mythic_bosses_killed}
+                                    max={this.state.myUldirProgress.total_bosses}
                                  >
                                     Uldir : {this.state.myUldirProgress.summary}
+                                 </Progress>
+                                 <Progress
+                                    style={{ marginTop: "20px" }}
+                                    animated
+                                    className={styles.progress}
+                                    value={this.state.myBoDProgress.mythic_bosses_killed}
+                                    max={this.state.myBoDProgress.total_bosses}
+                                 >
+                                    Battle of Dazar'alor : {this.state.myBoDProgress.summary}
                                  </Progress>
                               </CardText>
                            </Card>
@@ -226,43 +205,22 @@ export default class About extends React.Component {
                               </CardTitle>
                               <Row>
                                  {this.state.bestRuns.map((runs, i) => (
-                                    <Col
-                                       xs="12"
-                                       lg={{ size: 8, offset: 2 }}
-                                       key={i}
-                                    >
+                                    <Col xs="12" lg={{ size: 10, offset: 1 }} key={i}>
                                        <Card inverse>
-                                          {this.state.dungeonPics.map(
-                                             (pics, u) => {
-                                                if (
-                                                   runs.short_name === pics.name
-                                                ) {
-                                                   return (
-                                                      <CardImg
-                                                         width="100%"
-                                                         src={pics.link}
-                                                      />
-                                                   );
-                                                }
+                                          {this.state.dungeonPics.map((pics, u) => {
+                                             if (runs.short_name === pics.name) {
+                                                return <CardImg width="100%" src={pics.link} />;
                                              }
-                                          )}
-                                          <CardImgOverlay
-                                             className={styles.overlay}
-                                          >
+                                          })}
+                                          <CardImgOverlay className={styles.overlay}>
                                              <CardTitle>
-                                                <a
-                                                   href={runs.url}
-                                                   target="_blank"
-                                                   rel="noopener norefferer"
-                                                >
+                                                <a href={runs.url} target="_blank" rel="noopener norefferer">
                                                    {runs.dungeon}
                                                    {" +"}
                                                    {runs.mythic_level}
                                                 </a>
                                              </CardTitle>
-                                             <CardText>
-                                                Score : {runs.score}
-                                             </CardText>
+                                             <CardText>Score : {runs.score}</CardText>
                                           </CardImgOverlay>
                                        </Card>
                                     </Col>
@@ -290,26 +248,20 @@ export default class About extends React.Component {
                </TabContent>
             </section>
             <UncontrolledTooltip placement="bottom" target="pveTooltip">
-               Player versus Environment : Fighting monsters (which are bots in
-               fact), alone or in group.
+               Player versus Environment : Fighting monsters (which are bots in fact), alone or in group.
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="bfa">
-               Battle For Azeroth is the lattest version of World of Warcraft,
-               released the 08/14/18
+               Battle For Azeroth is the lattest version of World of Warcraft, released the 08/14/18
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="mplus">
-               Mythic+ is a recent exciting thing in World of Warcraft. It is a
-               new mode of content that offers players an endlessly scaling
-               challenge in 5-player dungeons. It can be really challenging and
-               good if you don't have 19 people to play with ! Depending on the
-               dungeon, the time you used to complete it and the key difficulty,
-               it gives you points !
+               Mythic+ is a recent exciting thing in World of Warcraft. It is a new mode of content that offers players
+               an endlessly scaling challenge in 5-player dungeons. It can be really challenging and good if you don't
+               have 19 people to play with ! Depending on the dungeon, the time you used to complete it and the key
+               difficulty, it gives you points !
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="raid">
-               The term progression mean the number of boss of the actual raid
-               you have killed with your group. A raid is a huge 20-man
-               instanced zone where there is several bosses (in general between
-               6 and 14).
+               The term progression mean the number of boss of the actual raid you have killed with your group. A raid
+               is a huge 20-man instanced zone where there is several bosses (in general between 6 and 14).
             </UncontrolledTooltip>
          </ResponsiveLayout>
       );
