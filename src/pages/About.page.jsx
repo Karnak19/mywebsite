@@ -1,5 +1,6 @@
 import React from "react";
 import {
+   Button,
    TabContent,
    TabPane,
    Nav,
@@ -13,11 +14,13 @@ import {
    CardText,
    CardTitle,
    CardImg,
-   CardImgOverlay
+   CardImgOverlay,
+   CardBody
 } from "reactstrap";
 import classnames from "classnames";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
 import styles from "./About.page.module.css";
@@ -31,12 +34,9 @@ export default class About extends React.Component {
          tooltipOpen: false,
          activeTab: "1",
          tabs: [
-            {
-               id: "1",
-               label: "World of Warcraft"
-            },
-            { id: "2", label: "Ice Hockey", imgLink: "" },
-            { id: "3", label: "ReactJS", imgLink: "" }
+            { id: "1", label: "World of Warcraft" },
+            { id: "2", label: "Ice Hockey" },
+            { id: "3", label: "ReactJS" }
          ],
          raiderIo: [],
          bestRuns: [],
@@ -71,7 +71,7 @@ export default class About extends React.Component {
       this.setState({ isPending: true });
       axios
          .get(
-            "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs",
+            "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs%3Aall",
             { headers: { Accept: "application/json" } }
          )
          .then(response => {
@@ -80,7 +80,6 @@ export default class About extends React.Component {
                bestRuns: response.data.mythic_plus_best_runs,
                isPending: false
             });
-            console.log(this.state.bestRuns);
          })
          .catch(() => this.setState({ isError: true }));
       axios
@@ -173,16 +172,15 @@ export default class About extends React.Component {
                                     </span>
                                  </h4>
                               </CardTitle>
-                              <CardText>
+                              <CardBody>
                                  <Progress
-                                    animated
                                     className={styles.progress}
                                     value={this.state.myUldirProgress.mythic_bosses_killed}
                                     max={this.state.myUldirProgress.total_bosses}
                                  >
                                     Uldir : {this.state.myUldirProgress.summary}
                                  </Progress>
-                                 <Progress
+                                 {/* <Progress
                                     style={{ marginTop: "20px" }}
                                     animated
                                     className={styles.progress}
@@ -190,8 +188,8 @@ export default class About extends React.Component {
                                     max={this.state.myBoDProgress.total_bosses}
                                  >
                                     Battle of Dazar'alor : {this.state.myBoDProgress.summary}
-                                 </Progress>
-                              </CardText>
+                                 </Progress> */}
+                              </CardBody>
                            </Card>
                            <Card body>
                               <CardTitle>
@@ -213,14 +211,47 @@ export default class About extends React.Component {
                                              }
                                           })}
                                           <CardImgOverlay className={styles.overlay}>
-                                             <CardTitle>
-                                                <a href={runs.url} target="_blank" rel="noopener norefferer">
-                                                   {runs.dungeon}
-                                                   {" +"}
-                                                   {runs.mythic_level}
-                                                </a>
+                                             <CardTitle style={{ fontSize: "1.4rem" }}>
+                                                {runs.dungeon}
+                                                {" +"}
+                                                {runs.mythic_level}
                                              </CardTitle>
-                                             <CardText>Score : {runs.score}</CardText>
+                                             <CardText>
+                                                <li>Score : {runs.score}</li>
+                                                {runs.num_keystone_upgrades === 1 ? (
+                                                   <li>
+                                                      Upgraded :{" "}
+                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                   </li>
+                                                ) : runs.num_keystone_upgrades === 2 ? (
+                                                   <li>
+                                                      Upgraded :{" "}
+                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                   </li>
+                                                ) : runs.num_keystone_upgrades === 3 ? (
+                                                   <li>
+                                                      Upgraded :{" "}
+                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                   </li>
+                                                ) : (
+                                                   <li>Not upgraded</li>
+                                                )}
+                                                <li>
+                                                   <Button
+                                                      href={runs.url}
+                                                      target="_blank"
+                                                      rel="noopener norefferer"
+                                                      outline
+                                                      color="warning"
+                                                      size="sm"
+                                                   >
+                                                      See on Raider.io
+                                                   </Button>
+                                                </li>
+                                             </CardText>
                                           </CardImgOverlay>
                                        </Card>
                                     </Col>
