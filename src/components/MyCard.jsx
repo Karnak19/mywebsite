@@ -28,11 +28,7 @@ class MyCard extends React.Component {
                   </li>
 
                   <li>
-                     <TheModal
-                        buttonLabel="Get my CV"
-                        color="success"
-                        className="col-xs-8"
-                     />
+                     <TheModal buttonLabel="Get my CV" color="success" className="col-xs-8" />
                   </li>
                </ul>
                <footer>
@@ -50,10 +46,7 @@ class MyCard extends React.Component {
                         </a>
                      </li>
                      <li>
-                        <a
-                           href="https://www.linkedin.com/in/basile-vernouillet"
-                           target="_blank"
-                        >
+                        <a href="https://www.linkedin.com/in/basile-vernouillet" target="_blank">
                            <FontAwesomeIcon
                               style={{
                                  marginLeft: "-58px",
@@ -65,10 +58,7 @@ class MyCard extends React.Component {
                         </a>
                      </li>
                      <li>
-                        <a
-                           href="https://www.instagram.com/basile_vern/"
-                           target="_blank"
-                        >
+                        <a href="https://www.instagram.com/basile_vern/" target="_blank">
                            <FontAwesomeIcon
                               style={{
                                  marginLeft: "-58px",
