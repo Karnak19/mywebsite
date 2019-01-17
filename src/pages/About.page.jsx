@@ -123,7 +123,7 @@ export default class About extends React.Component {
                <TabContent activeTab={this.state.activeTab} style={{ overflowY: "auto", overflowX: "hidden" }}>
                   <TabPane id="1" tabId="1" className={styles.content}>
                      <Row>
-                        <Col lg="6" sm="12" xs="12">
+                        <Col lg="6" sm="4" xs="12">
                            <p>
                               World of Warcraft is a great game. I mostly enjoy the End-game content, particularly{" "}
                               <span href="#" id="pveTooltip">
@@ -134,130 +134,119 @@ export default class About extends React.Component {
                               huge role to defeat each bosses.
                            </p>
                         </Col>
-                        <Col lg="6" sm="12" xs="12" style={{ listStyle: "none" }}>
-                           <Card body>
-                              <CardTitle>
-                                 <h4>My Character :</h4>
-                                 <li>
-                                    <a
-                                       href={this.state.raiderIo.profile_url}
-                                       target="_blank"
-                                       rel="noopener noreferrer"
-                                       style={{ fontSize: "1.4rem" }}
-                                    >
-                                       {this.state.raiderIo.name}
-                                    </a>
-                                 </li>
-                              </CardTitle>
+                        <Col lg="6" sm="8" xs="12" style={{ listStyle: "none" }}>
+                           <div id="my_char">
+                              <h4>My Character :</h4>
+                              <li>
+                                 <a
+                                    href={this.state.raiderIo.profile_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{ fontSize: "1.4rem" }}
+                                 >
+                                    {this.state.raiderIo.name}
+                                 </a>
+                              </li>
                               <li>
                                  <a href={this.state.raiderIo.profile_url} target="_blank" rel="noopener noreferrer">
                                     <img src={this.state.raiderIo.thumbnail_url} alt={this.state.raiderIo.name} />
                                  </a>
                               </li>
-                              <CardText>
-                                 <li>
-                                    {this.state.raiderIo.race} {this.state.raiderIo.class}
-                                 </li>
-                                 <li>{this.state.raiderIo.faction} proud !</li>
-                              </CardText>
-                           </Card>
-                           <Card body>
-                              <CardTitle>
-                                 <h4>
-                                    <span href="#" id="bfa">
-                                       Battle for Azeroth
-                                    </span>{" "}
-                                    <span href="#" id="raid">
-                                       Progression
-                                    </span>
-                                 </h4>
-                              </CardTitle>
-                              <CardBody>
-                                 <Progress
-                                    className={styles.progress}
-                                    value={this.state.myUldirProgress.mythic_bosses_killed}
-                                    max={this.state.myUldirProgress.total_bosses}
-                                 >
-                                    Uldir : {this.state.myUldirProgress.summary}
-                                 </Progress>
-                                 {/* <Progress
+                              <li>
+                                 {this.state.raiderIo.race} {this.state.raiderIo.class}
+                              </li>
+                              <li>{this.state.raiderIo.faction} proud !</li>
+                           </div>
+                           <hr />
+                           <div id="my_progress">
+                              <h4>
+                                 <span href="#" id="bfa">
+                                    Battle for Azeroth
+                                 </span>{" "}
+                                 <span href="#" id="raid">
+                                    Progression
+                                 </span>
+                              </h4>
+
+                              <Progress
+                                 className={styles.progress}
+                                 value={this.state.myUldirProgress.mythic_bosses_killed}
+                                 max={this.state.myUldirProgress.total_bosses}
+                              >
+                                 Uldir : {this.state.myUldirProgress.summary}
+                              </Progress>
+                              {/* <Progress
                                     style={{ marginTop: "20px" }}
                                     animated
                                     className={styles.progress}
                                     value={this.state.myBoDProgress.mythic_bosses_killed}
                                     max={this.state.myBoDProgress.total_bosses}
-                                 >
+                                    >
                                     Battle of Dazar'alor : {this.state.myBoDProgress.summary}
                                  </Progress> */}
-                              </CardBody>
-                           </Card>
-                           <Card body>
-                              <CardTitle>
-                                 <h4>
-                                    My best{" "}
-                                    <span href="#" id="mplus">
-                                       Mythic+
-                                    </span>{" "}
-                                    runs
-                                 </h4>
-                              </CardTitle>
-                              <Row>
-                                 {this.state.bestRuns.map((runs, i) => (
-                                    <Col xs="12" lg={{ size: 10, offset: 1 }} key={i}>
-                                       <Card inverse>
-                                          {this.state.dungeonPics.map((pics, u) => {
-                                             if (runs.short_name === pics.name) {
-                                                return <CardImg width="100%" src={pics.link} />;
-                                             }
-                                          })}
-                                          <CardImgOverlay className={styles.overlay}>
-                                             <CardTitle style={{ fontSize: "1.4rem" }}>
-                                                {runs.dungeon}
-                                                {" +"}
-                                                {runs.mythic_level}
-                                             </CardTitle>
-                                             <CardText>
-                                                <li>Score : {runs.score}</li>
-                                                {runs.num_keystone_upgrades === 1 ? (
-                                                   <li>
-                                                      Upgraded :{" "}
-                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                   </li>
-                                                ) : runs.num_keystone_upgrades === 2 ? (
-                                                   <li>
-                                                      Upgraded :{" "}
-                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                   </li>
-                                                ) : runs.num_keystone_upgrades === 3 ? (
-                                                   <li>
-                                                      Upgraded :{" "}
-                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                      <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                   </li>
-                                                ) : (
-                                                   <li>Not upgraded</li>
-                                                )}
+                           </div>
+                           <hr />
+                           <div id="my_dungeons">
+                              <h4>
+                                 My best{" "}
+                                 <span href="#" id="mplus">
+                                    Mythic+
+                                 </span>{" "}
+                                 runs
+                              </h4>
+                              {this.state.bestRuns.map((runs, i) => (
+                                 // Loop the best of each dungeons.
+                                 <Col xs="12" lg={{ size: 12, offset: 0 }} key={i}>
+                                    <Card inverse>
+                                       {this.state.dungeonPics.map((pics, u) => {
+                                          if (runs.short_name === pics.name) {
+                                             return <CardImg style={{ minHeight: "200px" }} src={pics.link} />;
+                                          }
+                                       })}
+                                       <CardImgOverlay className={styles.overlay}>
+                                          <CardTitle style={{ fontSize: "1.4rem" }}>
+                                             {runs.dungeon}
+                                             {" +"}
+                                             {runs.mythic_level}
+                                          </CardTitle>
+                                          <CardText>
+                                             <li>Score : {runs.score}</li>
+                                             {runs.num_keystone_upgrades === 1 ? (
                                                 <li>
-                                                   <Button
-                                                      href={runs.url}
-                                                      target="_blank"
-                                                      rel="noopener norefferer"
-                                                      outline
-                                                      color="warning"
-                                                      size="sm"
-                                                   >
-                                                      See on Raider.io
-                                                   </Button>
+                                                   Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
                                                 </li>
-                                             </CardText>
-                                          </CardImgOverlay>
-                                       </Card>
-                                    </Col>
-                                 ))}
-                              </Row>
-                           </Card>
+                                             ) : runs.num_keystone_upgrades === 2 ? (
+                                                <li>
+                                                   Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                   <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                </li>
+                                             ) : runs.num_keystone_upgrades === 3 ? (
+                                                <li>
+                                                   Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                   <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                   <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
+                                                </li>
+                                             ) : (
+                                                <li>Not upgraded</li>
+                                             )}
+                                             <li>
+                                                <Button
+                                                   href={runs.url}
+                                                   target="_blank"
+                                                   rel="noopener norefferer"
+                                                   outline
+                                                   color="warning"
+                                                   size="sm"
+                                                >
+                                                   See on Raider.io
+                                                </Button>
+                                             </li>
+                                          </CardText>
+                                       </CardImgOverlay>
+                                    </Card>
+                                 </Col>
+                              ))}
+                           </div>
                         </Col>
                      </Row>
                   </TabPane>
