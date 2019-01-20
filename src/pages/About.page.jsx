@@ -77,7 +77,7 @@ export default class About extends React.Component {
          .then(response => {
             this.setState({
                raiderIo: response.data,
-               bestRuns: response.data.mythic_plus_best_runs,
+               bestRuns: response.data["mythic_plus_best_runs"],
                isPending: false
             });
          })
@@ -89,7 +89,8 @@ export default class About extends React.Component {
          )
          .then(response => {
             this.setState({
-               myUldirProgress: response.data.raid_progression.uldir,
+               myUldirProgress: response.data.raid_progression["uldir"],
+               myBoDProgress: response.data.raid_progression["battle-of-dazaralor"],
                isPending: false
             });
          })
@@ -105,8 +106,8 @@ export default class About extends React.Component {
             <section className={styles.container}>
                <h1>About me</h1>
                <Nav tabs>
-                  {this.state.tabs.map(tabs => (
-                     <NavItem className="col-lg-4">
+                  {this.state.tabs.map((tabs, i) => (
+                     <NavItem className="col-lg-4" key={i}>
                         <NavLink
                            className={classnames({
                               active: this.state.activeTab === tabs.id
@@ -175,15 +176,14 @@ export default class About extends React.Component {
                               >
                                  Uldir : {this.state.myUldirProgress.summary}
                               </Progress>
-                              {/* <Progress
-                                    style={{ marginTop: "20px" }}
-                                    animated
-                                    className={styles.progress}
-                                    value={this.state.myBoDProgress.mythic_bosses_killed}
-                                    max={this.state.myBoDProgress.total_bosses}
-                                    >
-                                    Battle of Dazar'alor : {this.state.myBoDProgress.summary}
-                                 </Progress> */}
+                              <Progress
+                                 style={{ marginTop: "20px" }}
+                                 className={styles.progress}
+                                 value={this.state.myBoDProgress.mythic_bosses_killed}
+                                 max={this.state.myBoDProgress.total_bosses}
+                              >
+                                 Battle of Dazar'alor : {this.state.myBoDProgress.summary}
+                              </Progress>
                            </div>
                            <hr />
                            <div id="my_dungeons">
