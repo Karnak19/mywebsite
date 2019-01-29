@@ -178,7 +178,7 @@ export default class About extends React.Component {
                               </Progress>
 
                               {/* Battle of Dazar'alor */}
-                              {this.state.myBoDProgress.mythic_bosses_killed < 0 ? (
+                              {this.state.myBoDProgress.mythic_bosses_killed > 0 ? (
                                  <Progress
                                     style={{ marginTop: "20px" }}
                                     className={styles.progress}
@@ -187,7 +187,7 @@ export default class About extends React.Component {
                                  >
                                     Battle of Dazar'alor : {this.state.myBoDProgress.summary}
                                  </Progress>
-                              ) : this.state.myBoDProgress.heroic_bosses_killed < 0 ? (
+                              ) : this.state.myBoDProgress.heroic_bosses_killed > 0 ? (
                                  <Progress
                                     style={{ marginTop: "20px" }}
                                     className={styles.progress}
