@@ -308,13 +308,19 @@ export default class About extends React.Component {
                                              ) : (
                                                 <li>Not upgraded</li>
                                              )}
-                                             <li>Affixes :</li>
                                              <li>
-                                                 {runs.affixes.map((runAff)=>{
-                                                     {return this.state.affixes.map((aff) => {
-                                                         return runAff.id === aff.id ? <img src={aff.link} /> : null;
-                                                     })}
-                                                 })}
+                                                Affixes :
+                                                {runs.affixes.map(runAff => {
+                                                   {
+                                                      return this.state.affixes.map(aff => {
+                                                         return runAff.id === aff.id ? (
+                                                            <img src={aff.link} className={styles.affixe} />
+                                                         ) : null;
+                                                      });
+                                                   }
+                                                })}
+                                             </li>
+                                             <li>
                                                 <Button
                                                    href={runs.url}
                                                    target="_blank"
