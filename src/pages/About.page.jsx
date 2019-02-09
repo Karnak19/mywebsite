@@ -54,20 +54,20 @@ export default class About extends React.Component {
             { name: "WM", link: "../images/dungeons/WM.jpg" }
          ],
          affixes: [
-            { id: "2", link: "../images/affixes/skit.jpg" },
-            { id: "3", link: "../images/affixes/volc.jpg" },
-            { id: "4", link: "../images/affixes/necro.jpg" },
-            { id: "5", link: "../images/affixes/teem.jpg" },
-            { id: "6", link: "../images/affixes/raging.jpg" },
-            { id: "7", link: "../images/affixes/bolst.jpg" },
-            { id: "8", link: "../images/affixes/sang.jpg" },
-            { id: "9", link: "../images/affixes/tyra.jpg" },
-            { id: "10", link: "../images/affixes/forti.jpg" },
-            { id: "11", link: "../images/affixes/burst.jpg" },
-            { id: "12", link: "../images/affixes/griev.jpg" },
-            { id: "13", link: "../images/affixes/expl.jpg" },
-            { id: "14", link: "../images/affixes/quak.jpg" },
-            { id: "117", link: "../images/affixes/reap.jpg" }
+            { id: 2, link: "../images/affixes/skit.jpg" },
+            { id: 3, link: "../images/affixes/volc.jpg" },
+            { id: 4, link: "../images/affixes/necro.jpg" },
+            { id: 5, link: "../images/affixes/teem.jpg" },
+            { id: 6, link: "../images/affixes/raging.jpg" },
+            { id: 7, link: "../images/affixes/bolst.jpg" },
+            { id: 8, link: "../images/affixes/sang.jpg" },
+            { id: 9, link: "../images/affixes/tyra.jpg" },
+            { id: 10, link: "../images/affixes/forti.jpg" },
+            { id: 11, link: "../images/affixes/burst.jpg" },
+            { id: 12, link: "../images/affixes/griev.jpg" },
+            { id: 13, link: "../images/affixes/expl.jpg" },
+            { id: 14, link: "../images/affixes/quak.jpg" },
+            { id: 117, link: "../images/affixes/reap.jpg" }
          ],
          myUldirProgress: [],
          myBoDProgress: [],
@@ -310,6 +310,11 @@ export default class About extends React.Component {
                                              )}
                                              <li>Affixes :</li>
                                              <li>
+                                                 {runs.affixes.map((runAff)=>{
+                                                     {return this.state.affixes.map((aff) => {
+                                                         return runAff.id === aff.id ? <img src={aff.link} /> : null;
+                                                     })}
+                                                 })}
                                                 <Button
                                                    href={runs.url}
                                                    target="_blank"
