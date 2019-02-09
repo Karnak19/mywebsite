@@ -53,21 +53,21 @@ export default class About extends React.Component {
             { name: "UNDR", link: "../images/dungeons/UNDR.jpg" },
             { name: "WM", link: "../images/dungeons/WM.jpg" }
          ],
-         allAffixes: [
-            { id: "2", link: "../images/affixes/skit.jpg" },
-            { id: "3", link: "../images/affixes/volc.jpg" },
-            { id: "4", link: "../images/affixes/necro.jpg" },
-            { id: "5", link: "../images/affixes/teem.jpg" },
-            { id: "6", link: "../images/affixes/raging.jpg" },
-            { id: "7", link: "../images/affixes/bolst.jpg" },
-            { id: "8", link: "../images/affixes/sang.jpg" },
-            { id: "9", link: "../images/affixes/tyra.jpg" },
-            { id: "10", link: "../images/affixes/forti.jpg" },
-            { id: "11", link: "../images/affixes/burst.jpg" },
-            { id: "12", link: "../images/affixes/griev.jpg" },
-            { id: "13", link: "../images/affixes/expl.jpg" },
-            { id: "14", link: "../images/affixes/quak.jpg" },
-            { id: "117", link: "../images/affixes/reap.jpg" }
+         affixes: [
+            { id: 2, link: "../images/affixes/skit.jpg" },
+            { id: 3, link: "../images/affixes/volc.jpg" },
+            { id: 4, link: "../images/affixes/necro.jpg" },
+            { id: 5, link: "../images/affixes/teem.jpg" },
+            { id: 6, link: "../images/affixes/raging.jpg" },
+            { id: 7, link: "../images/affixes/bolst.jpg" },
+            { id: 8, link: "../images/affixes/sang.jpg" },
+            { id: 9, link: "../images/affixes/tyra.jpg" },
+            { id: 10, link: "../images/affixes/forti.jpg" },
+            { id: 11, link: "../images/affixes/burst.jpg" },
+            { id: 12, link: "../images/affixes/griev.jpg" },
+            { id: 13, link: "../images/affixes/expl.jpg" },
+            { id: 14, link: "../images/affixes/quak.jpg" },
+            { id: 117, link: "../images/affixes/reap.jpg" }
          ],
          myUldirProgress: [],
          myBoDProgress: [],
@@ -196,30 +196,30 @@ export default class About extends React.Component {
                                     <CardTitle tag="h3">Uldir</CardTitle>
 
                                     <Progress
-                                       value={this.state.myUldirProgress.normal_bosses_killed}
-                                       max={this.state.myUldirProgress.total_bosses}
                                        color="info"
                                        className={styles.progress}
+                                       value={this.state.myUldirProgress.normal_bosses_killed}
+                                       max={this.state.myUldirProgress.total_bosses}
                                        style={{ marginTop: "5px" }}
                                     >
                                        Normal : {this.state.myUldirProgress.normal_bosses_killed} /{" "}
                                        {this.state.myUldirProgress.total_bosses}
                                     </Progress>
                                     <Progress
-                                       value={this.state.myUldirProgress.heroic_bosses_killed}
-                                       max={this.state.myUldirProgress.total_bosses}
                                        color="info"
                                        className={styles.progress}
+                                       value={this.state.myUldirProgress.heroic_bosses_killed}
+                                       max={this.state.myUldirProgress.total_bosses}
                                        style={{ marginTop: "5px" }}
                                     >
                                        Heroic : {this.state.myUldirProgress.heroic_bosses_killed} /{" "}
                                        {this.state.myUldirProgress.total_bosses}
                                     </Progress>
                                     <Progress
-                                       value={this.state.myUldirProgress.mythic_bosses_killed}
-                                       max={this.state.myUldirProgress.total_bosses}
                                        color="info"
                                        className={styles.progress}
+                                       value={this.state.myUldirProgress.mythic_bosses_killed}
+                                       max={this.state.myUldirProgress.total_bosses}
                                        style={{ marginTop: "5px" }}
                                     >
                                        Mythic : {this.state.myUldirProgress.mythic_bosses_killed} /{" "}
@@ -231,30 +231,30 @@ export default class About extends React.Component {
                                     <CardTitle tag="h3">Battle of Dazar'Alor</CardTitle>
 
                                     <Progress
+                                       color="info"
+                                       className={styles.progress}
                                        value={this.state.myBoDProgress.normal_bosses_killed}
                                        max={this.state.myBoDProgress.total_bosses}
-                                       className={styles.progress}
-                                       color="info"
                                        style={{ marginTop: "5px" }}
                                     >
                                        Normal : {this.state.myBoDProgress.normal_bosses_killed} /{" "}
                                        {this.state.myBoDProgress.total_bosses}
                                     </Progress>
                                     <Progress
+                                       color="info"
+                                       className={styles.progress}
                                        value={this.state.myBoDProgress.heroic_bosses_killed}
                                        max={this.state.myBoDProgress.total_bosses}
-                                       className={styles.progress}
-                                       color="info"
                                        style={{ marginTop: "5px" }}
                                     >
                                        Heroic : {this.state.myBoDProgress.heroic_bosses_killed} /{" "}
                                        {this.state.myBoDProgress.total_bosses}
                                     </Progress>
                                     <Progress
+                                       color="info"
+                                       className={styles.progress}
                                        value={this.state.myBoDProgress.mythic_bosses_killed}
                                        max={this.state.myBoDProgress.total_bosses}
-                                       className={styles.progress}
-                                       color="info"
                                        style={{ marginTop: "5px" }}
                                     >
                                        Mythic : {this.state.myBoDProgress.mythic_bosses_killed} /{" "}
@@ -279,7 +279,7 @@ export default class About extends React.Component {
                                     <Card inverse>
                                        {this.state.dungeonPics.map((pics, u) => {
                                           if (runs.short_name === pics.name) {
-                                             return <CardImg style={{ minHeight: "200px" }} src={pics.link} key={u} />;
+                                             return <CardImg style={{ minHeight: "200px" }} src={pics.link} />;
                                           }
                                        })}
                                        <CardImgOverlay className={styles.overlay}>
@@ -308,22 +308,13 @@ export default class About extends React.Component {
                                              ) : (
                                                 <li>Not upgraded</li>
                                              )}
-
+                                             <li>Affixes :</li>
                                              <li>
-                                                Affixes :{" "}
-                                                {/* {runs.affixes.map((runAff, i) => {
-                                                   return runAff.name;
-                                                })}
-                                                {this.state.allAffixes.map((aff, o) => {
-                                                   return <img src={aff.link} key={o} />;
-                                                })} */}
-                                                {runs.affixes.map((runAff, i) => {
-                                                   return this.state.allAffixes.map((aff, index) => {
-                                                      aff.id === runAff.id ? <img src={aff.link} key={index} /> : null;
-                                                   });
-                                                })}
-                                             </li>
-                                             <li>
+                                                 {runs.affixes.map((runAff)=>{
+                                                     {return this.state.affixes.map((aff) => {
+                                                         return runAff.id === aff.id ? <img src={aff.link} /> : null;
+                                                     })}
+                                                 })}
                                                 <Button
                                                    href={runs.url}
                                                    target="_blank"
