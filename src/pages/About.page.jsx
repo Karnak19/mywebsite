@@ -318,9 +318,13 @@ export default class About extends React.Component {
                                                                <a href={`https://wowhead.com/affix=`+runAff.id}>
                                                                   <img src={aff.link} className={styles.affixe} id={`affix`+runAff.id} />
                                                                </a>
+                                                               {/* BUG ZONE
+                                                               Tooltip doesn't apply to duplicate affixes image
+                                                                */}
                                                                <UncontrolledTooltip placement="top" target={`affix`+runAff.id}>
                                                                   {runAff.description}
                                                                </UncontrolledTooltip>
+                                                               {/* ENDING BUG ZONE */}
                                                             </Fragment>
                                                          ) : null;
                                                       });
