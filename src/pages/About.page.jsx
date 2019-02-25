@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {
    Button,
    TabContent,
@@ -145,8 +145,8 @@ export default class About extends React.Component {
                </Nav>
                <TabContent activeTab={this.state.activeTab} style={{ overflowY: "auto", overflowX: "hidden" }}>
                   <TabPane id="1" tabId="1" className={styles.content}>
-                     <Row>
-                        <Col lg="6" sm="4" xs="12">
+                     
+                        <Col lg="12" sm="12" xs="12">
                            <p>
                               World of Warcraft is a great game. I mostly enjoy the End-game content, particularly{" "}
                               <span href="#" id="pveTooltip">
@@ -157,7 +157,7 @@ export default class About extends React.Component {
                               huge role to defeat each bosses.
                            </p>
                         </Col>
-                        <Col lg="6" sm="8" xs="12" style={{ listStyle: "none" }}>
+                        <Col lg="12" sm="12" xs="12" style={{ listStyle: "none" }}>
                            <div id="my_char">
                               <h4>My Character :</h4>
                               <li>
@@ -274,7 +274,7 @@ export default class About extends React.Component {
                               </h4>
                               {this.state.bestRuns.map((runs, i) => (
                                  // Loop the best of each dungeons.
-                                 <Col xs="12" lg={{ size: 12, offset: 0 }} key={i}>
+                                 <Col xs="12" lg={{ size: 6, offset: 3 }} key={i}>
                                     <hr />
                                     <Card inverse>
                                        {this.state.dungeonPics.map((pics, u) => {
@@ -314,7 +314,14 @@ export default class About extends React.Component {
                                                    {
                                                       return this.state.affixes.map(aff => {
                                                          return runAff.id === aff.id ? (
-                                                            <img src={aff.link} className={styles.affixe} />
+                                                            <Fragment>
+                                                               <a href={`https://wowhead.com/affix=`+runAff.id}>
+                                                                  <img src={aff.link} className={styles.affixe} id={`affix`+runAff.id} />
+                                                               </a>
+                                                               <UncontrolledTooltip placement="top" target={`affix`+runAff.id}>
+                                                                  {runAff.description}
+                                                               </UncontrolledTooltip>
+                                                            </Fragment>
                                                          ) : null;
                                                       });
                                                    }
@@ -339,7 +346,7 @@ export default class About extends React.Component {
                               ))}
                            </div>
                         </Col>
-                     </Row>
+                     
                   </TabPane>
                   <TabPane tabId="2">
                      <Row>
