@@ -30,14 +30,8 @@ span {
    font-weight: bold;
 }
 
-.progress {
-   height: 2rem;
-   font-size: 1rem;
-   background-color: rgb(131, 131, 131);
-}
-
 .overlay {
-   background-color: rgba(0, 0, 0, 0.616);
+   background-color: rgba(0, 0, 0, 0.4);
    border-radius: calc(0.25rem - 1px);
 }
 

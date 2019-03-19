@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
 import Affixes from "../components/theAffixe.jsx";
+import MyProgress from "../components/myProgress.jsx";
 import styles from "./About.page.module.css";
 
 export default class About extends React.Component {
@@ -50,8 +51,6 @@ export default class About extends React.Component {
             { name: "UNDR", link: "../images/dungeons/UNDR.jpg" },
             { name: "WM", link: "../images/dungeons/WM.jpg" }
          ],
-         myUldirProgress: [],
-         myBoDProgress: [],
          isPending: false,
          isError: false
       };
@@ -163,70 +162,7 @@ export default class About extends React.Component {
                               </span>
                            </h4>
                            <Row>
-                              <Col lg="6" sm="6" xs="12">
-                                 <hr />
-                                 <CardTitle tag="h3">Uldir</CardTitle>
-
-                                 <Progress
-                                    color="info"
-                                    className={styles.progress}
-                                    value={this.state.myUldirProgress.normal_bosses_killed}
-                                    max={this.state.myUldirProgress.total_bosses}
-                                    style={{ marginTop: "5px" }}
-                                 >
-                                    Normal : {this.state.myUldirProgress.normal_bosses_killed} / {this.state.myUldirProgress.total_bosses}
-                                 </Progress>
-                                 <Progress
-                                    color="info"
-                                    className={styles.progress}
-                                    value={this.state.myUldirProgress.heroic_bosses_killed}
-                                    max={this.state.myUldirProgress.total_bosses}
-                                    style={{ marginTop: "5px" }}
-                                 >
-                                    Heroic : {this.state.myUldirProgress.heroic_bosses_killed} / {this.state.myUldirProgress.total_bosses}
-                                 </Progress>
-                                 <Progress
-                                    color="info"
-                                    className={styles.progress}
-                                    value={this.state.myUldirProgress.mythic_bosses_killed}
-                                    max={this.state.myUldirProgress.total_bosses}
-                                    style={{ marginTop: "5px" }}
-                                 >
-                                    Mythic : {this.state.myUldirProgress.mythic_bosses_killed} / {this.state.myUldirProgress.total_bosses}
-                                 </Progress>
-                              </Col>
-                              <Col lg="6" sm="6" xs="12">
-                                 <hr />
-                                 <CardTitle tag="h3">Battle of Dazar'Alor</CardTitle>
-
-                                 <Progress
-                                    color="info"
-                                    className={styles.progress}
-                                    value={this.state.myBoDProgress.normal_bosses_killed}
-                                    max={this.state.myBoDProgress.total_bosses}
-                                    style={{ marginTop: "5px" }}
-                                 >
-                                    Normal : {this.state.myBoDProgress.normal_bosses_killed} / {this.state.myBoDProgress.total_bosses}
-                                 </Progress>
-                                 <Progress
-                                    color="info"
-                                    className={styles.progress}
-                                    value={this.state.myBoDProgress.heroic_bosses_killed}
-                                    max={this.state.myBoDProgress.total_bosses}
-                                    style={{ marginTop: "5px" }}
-                                 >
-                                    Heroic : {this.state.myBoDProgress.heroic_bosses_killed} / {this.state.myBoDProgress.total_bosses}
-                                 </Progress>
-                                 <Progress
-                                    color="info"
-                                    className={styles.progress}
-                                    value={this.state.myBoDProgress.mythic_bosses_killed}
-                                    max={this.state.myBoDProgress.total_bosses}
-                                    style={{ marginTop: "5px" }}
-                                 >
-                                    Mythic : {this.state.myBoDProgress.mythic_bosses_killed} / {this.state.myBoDProgress.total_bosses}
-                                 </Progress>
-                              </Col>
+                              <MyProgress />
                            </Row>
                         </div>
                         <hr />
