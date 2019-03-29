@@ -28,6 +28,7 @@ import Affixes from "../components/theAffixe.jsx";
 import MyProgress from "../components/myProgress.jsx";
 import MyCharacter from "../components/MyCharacter.jsx";
 import styles from "./About.page.module.css";
+import KeystoneUpgrade from "../components/KeystoneUpgrade.jsx";
 
 export default class About extends React.Component {
    constructor(props) {
@@ -181,24 +182,8 @@ export default class About extends React.Component {
                                        </CardTitle>
                                        <CardText>
                                           <li>Score : {runs.score}</li>
-                                          {runs.num_keystone_upgrades === 1 ? (
-                                             <li>
-                                                Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                             </li>
-                                          ) : runs.num_keystone_upgrades === 2 ? (
-                                             <li>
-                                                Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                             </li>
-                                          ) : runs.num_keystone_upgrades === 3 ? (
-                                             <li>
-                                                Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                             </li>
-                                          ) : (
-                                             <li>Not upgraded</li>
-                                          )}
+
+                                          <KeystoneUpgrade run={runs} />
                                           <li>
                                              Affixes :
                                              <Affixes run={runs} />
