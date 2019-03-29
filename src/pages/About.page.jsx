@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {
    Button,
    TabContent,
@@ -24,7 +24,11 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
+import Affixes from "../components/theAffixe.jsx";
+import MyProgress from "../components/myProgress.jsx";
+import MyCharacter from "../components/MyCharacter.jsx";
 import styles from "./About.page.module.css";
+import KeystoneUpgrade from "../components/KeystoneUpgrade.jsx";
 
 export default class About extends React.Component {
    constructor(props) {
@@ -34,11 +38,7 @@ export default class About extends React.Component {
       this.state = {
          tooltipOpen: false,
          activeTab: "1",
-         tabs: [
-            { id: "1", label: "World of Warcraft" },
-            { id: "2", label: "Ice Hockey" },
-            { id: "3", label: "ReactJS" }
-         ],
+         tabs: [{ id: "1", label: "World of Warcraft" }, { id: "2", label: "Ice Hockey" }, { id: "3", label: "ReactJS" }],
          raiderIo: [],
          bestRuns: [],
          dungeonPics: [
@@ -53,24 +53,6 @@ export default class About extends React.Component {
             { name: "UNDR", link: "../images/dungeons/UNDR.jpg" },
             { name: "WM", link: "../images/dungeons/WM.jpg" }
          ],
-         affixes: [
-            { id: 2, link: "../images/affixes/skit.jpg" },
-            { id: 3, link: "../images/affixes/volc.jpg" },
-            { id: 4, link: "../images/affixes/necro.jpg" },
-            { id: 5, link: "../images/affixes/teem.jpg" },
-            { id: 6, link: "../images/affixes/raging.jpg" },
-            { id: 7, link: "../images/affixes/bolst.jpg" },
-            { id: 8, link: "../images/affixes/sang.jpg" },
-            { id: 9, link: "../images/affixes/tyra.jpg" },
-            { id: 10, link: "../images/affixes/forti.jpg" },
-            { id: 11, link: "../images/affixes/burst.jpg" },
-            { id: 12, link: "../images/affixes/griev.jpg" },
-            { id: 13, link: "../images/affixes/expl.jpg" },
-            { id: 14, link: "../images/affixes/quak.jpg" },
-            { id: 117, link: "../images/affixes/reap.jpg" }
-         ],
-         myUldirProgress: [],
-         myBoDProgress: [],
          isPending: false,
          isError: false
       };
@@ -89,7 +71,9 @@ export default class About extends React.Component {
       axios
          .get(
             "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs%3Aall",
-            { headers: { Accept: "application/json" } }
+            {
+               headers: { Accept: "application/json" }
+            }
          )
          .then(response => {
             this.setState({
@@ -100,10 +84,9 @@ export default class About extends React.Component {
          })
          .catch(() => this.setState({ isError: true }));
       axios
-         .get(
-            "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=raid_progression",
-            { headers: { Accept: "application/json" } }
-         )
+         .get("https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=raid_progression", {
+            headers: { Accept: "application/json" }
+         })
          .then(response => {
             this.setState({
                myUldirProgress: response.data.raid_progression["uldir"],
@@ -145,213 +128,87 @@ export default class About extends React.Component {
                </Nav>
                <TabContent activeTab={this.state.activeTab} style={{ overflowY: "auto", overflowX: "hidden" }}>
                   <TabPane id="1" tabId="1" className={styles.content}>
-                     
-                        <Col lg="12" sm="12" xs="12">
-                           <p>
-                              World of Warcraft is a great game. I mostly enjoy the End-game content, particularly{" "}
-                              <span href="#" id="pveTooltip">
-                                 PvE
+                     <Col lg="12" sm="12" xs="12">
+                        <p>
+                           World of Warcraft is a great game. I mostly enjoy the End-game content, particularly{" "}
+                           <span href="#" id="pveTooltip">
+                              PvE
+                           </span>
+                           . In End-game PvE, you need a lot of teamwork, to make a 20-man team cooperate in the same way. Being
+                           selfish does not work in this environment, as every player here will play a huge role to defeat each
+                           bosses.
+                        </p>
+                     </Col>
+                     <Col lg="12" sm="12" xs="12" style={{ listStyle: "none" }}>
+                        <MyCharacter raiderIO={this.state.raiderIo} />
+                        <hr />
+                        <div id="my_progress">
+                           <h4>
+                              <span href="#" id="bfa">
+                                 Battle for Azeroth
+                              </span>{" "}
+                              <span href="#" id="raid">
+                                 Progression
                               </span>
-                              . In End-game PvE, you need a lot of teamwork, to make a 20-man team cooperate in the same
-                              way. Being selfish does not work in this environment, as every player here will play a
-                              huge role to defeat each bosses.
-                           </p>
-                        </Col>
-                        <Col lg="12" sm="12" xs="12" style={{ listStyle: "none" }}>
-                           <div id="my_char">
-                              <h4>My Character :</h4>
-                              <li>
-                                 <a
-                                    href={this.state.raiderIo.profile_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{ fontSize: "1.4rem" }}
-                                 >
-                                    {this.state.raiderIo.name}
-                                 </a>
-                              </li>
-                              <li>
-                                 <a href={this.state.raiderIo.profile_url} target="_blank" rel="noopener noreferrer">
-                                    <img src={this.state.raiderIo.thumbnail_url} alt={this.state.raiderIo.name} />
-                                 </a>
-                              </li>
-                              <li>
-                                 {this.state.raiderIo.race} {this.state.raiderIo.class}
-                              </li>
-                              <li>{this.state.raiderIo.faction} proud !</li>
-                           </div>
-                           <hr />
-                           <div id="my_progress">
-                              <h4>
-                                 <span href="#" id="bfa">
-                                    Battle for Azeroth
-                                 </span>{" "}
-                                 <span href="#" id="raid">
-                                    Progression
-                                 </span>
-                              </h4>
-                              <Row>
-                                 <Col lg="6" sm="6" xs="12">
-                                    <hr />
-                                    <CardTitle tag="h3">Uldir</CardTitle>
+                           </h4>
+                           <Row>
+                              <MyProgress />
+                           </Row>
+                        </div>
+                        <hr />
+                        <div id="my_dungeons">
+                           <h4>
+                              My best{" "}
+                              <span href="#" id="mplus">
+                                 Mythic+
+                              </span>{" "}
+                              runs
+                           </h4>
+                           {this.state.bestRuns.map((runs, i) => (
+                              // Loop the best of each dungeons.
+                              <Col xs="12" lg={{ size: 6, offset: 3 }} key={i}>
+                                 <hr />
+                                 <Card inverse>
+                                    {this.state.dungeonPics.map((pics, u) => {
+                                       if (runs.short_name === pics.name) {
+                                          return <CardImg style={{ minHeight: "200px" }} src={pics.link} />;
+                                       }
+                                    })}
+                                    <CardImgOverlay className={styles.overlay}>
+                                       <CardTitle style={{ fontSize: "1.4rem" }}>
+                                          {runs.dungeon}
+                                          {" +"}
+                                          {runs.mythic_level}
+                                       </CardTitle>
+                                       <CardText>
+                                          <li>Score : {runs.score}</li>
 
-                                    <Progress
-                                       color="info"
-                                       className={styles.progress}
-                                       value={this.state.myUldirProgress.normal_bosses_killed}
-                                       max={this.state.myUldirProgress.total_bosses}
-                                       style={{ marginTop: "5px" }}
-                                    >
-                                       Normal : {this.state.myUldirProgress.normal_bosses_killed} /{" "}
-                                       {this.state.myUldirProgress.total_bosses}
-                                    </Progress>
-                                    <Progress
-                                       color="info"
-                                       className={styles.progress}
-                                       value={this.state.myUldirProgress.heroic_bosses_killed}
-                                       max={this.state.myUldirProgress.total_bosses}
-                                       style={{ marginTop: "5px" }}
-                                    >
-                                       Heroic : {this.state.myUldirProgress.heroic_bosses_killed} /{" "}
-                                       {this.state.myUldirProgress.total_bosses}
-                                    </Progress>
-                                    <Progress
-                                       color="info"
-                                       className={styles.progress}
-                                       value={this.state.myUldirProgress.mythic_bosses_killed}
-                                       max={this.state.myUldirProgress.total_bosses}
-                                       style={{ marginTop: "5px" }}
-                                    >
-                                       Mythic : {this.state.myUldirProgress.mythic_bosses_killed} /{" "}
-                                       {this.state.myUldirProgress.total_bosses}
-                                    </Progress>
-                                 </Col>
-                                 <Col lg="6" sm="6" xs="12">
-                                    <hr />
-                                    <CardTitle tag="h3">Battle of Dazar'Alor</CardTitle>
+                                          <KeystoneUpgrade run={runs} />
 
-                                    <Progress
-                                       color="info"
-                                       className={styles.progress}
-                                       value={this.state.myBoDProgress.normal_bosses_killed}
-                                       max={this.state.myBoDProgress.total_bosses}
-                                       style={{ marginTop: "5px" }}
-                                    >
-                                       Normal : {this.state.myBoDProgress.normal_bosses_killed} /{" "}
-                                       {this.state.myBoDProgress.total_bosses}
-                                    </Progress>
-                                    <Progress
-                                       color="info"
-                                       className={styles.progress}
-                                       value={this.state.myBoDProgress.heroic_bosses_killed}
-                                       max={this.state.myBoDProgress.total_bosses}
-                                       style={{ marginTop: "5px" }}
-                                    >
-                                       Heroic : {this.state.myBoDProgress.heroic_bosses_killed} /{" "}
-                                       {this.state.myBoDProgress.total_bosses}
-                                    </Progress>
-                                    <Progress
-                                       color="info"
-                                       className={styles.progress}
-                                       value={this.state.myBoDProgress.mythic_bosses_killed}
-                                       max={this.state.myBoDProgress.total_bosses}
-                                       style={{ marginTop: "5px" }}
-                                    >
-                                       Mythic : {this.state.myBoDProgress.mythic_bosses_killed} /{" "}
-                                       {this.state.myBoDProgress.total_bosses}
-                                    </Progress>
-                                 </Col>
-                              </Row>
-                           </div>
-                           <hr />
-                           <div id="my_dungeons">
-                              <h4>
-                                 My best{" "}
-                                 <span href="#" id="mplus">
-                                    Mythic+
-                                 </span>{" "}
-                                 runs
-                              </h4>
-                              {this.state.bestRuns.map((runs, i) => (
-                                 // Loop the best of each dungeons.
-                                 <Col xs="12" lg={{ size: 6, offset: 3 }} key={i}>
-                                    <hr />
-                                    <Card inverse>
-                                       {this.state.dungeonPics.map((pics, u) => {
-                                          if (runs.short_name === pics.name) {
-                                             return <CardImg style={{ minHeight: "200px" }} src={pics.link} />;
-                                          }
-                                       })}
-                                       <CardImgOverlay className={styles.overlay}>
-                                          <CardTitle style={{ fontSize: "1.4rem" }}>
-                                             {runs.dungeon}
-                                             {" +"}
-                                             {runs.mythic_level}
-                                          </CardTitle>
-                                          <CardText>
-                                             <li>Score : {runs.score}</li>
-                                             {runs.num_keystone_upgrades === 1 ? (
-                                                <li>
-                                                   Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                </li>
-                                             ) : runs.num_keystone_upgrades === 2 ? (
-                                                <li>
-                                                   Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                   <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                </li>
-                                             ) : runs.num_keystone_upgrades === 3 ? (
-                                                <li>
-                                                   Upgraded : <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                   <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                   <FontAwesomeIcon icon={["fas", "star"]} color="yellow" />
-                                                </li>
-                                             ) : (
-                                                <li>Not upgraded</li>
-                                             )}
-                                             <li>
-                                                Affixes :
-                                                {runs.affixes.map(runAff => {
-                                                   {
-                                                      return this.state.affixes.map((aff, i) => {
-                                                         const affixId = `affix${runAff.id}-${i}-${Math.ceil(Math.random()*10000)}`
-                                                         return runAff.id === aff.id ? (
-                                                            <Fragment>
-                                                               <a href={`https://wowhead.com/affix=`+runAff.id}>
-                                                                  <img src={aff.link} className={styles.affixe} id={affixId} />
-                                                               </a>
-                                                               {/* BUG ZONE
-                                                               Tooltip doesn't apply to duplicate affixes image
-                                                                */}
-                                                               <UncontrolledTooltip placement="top" target={affixId}>
-                                                                  {runAff.description}
-                                                               </UncontrolledTooltip>
-                                                               {/* ENDING BUG ZONE */}
-                                                            </Fragment>
-                                                         ) : null;
-                                                      });
-                                                   }
-                                                })}
-                                             </li>
-                                             <li>
-                                                <Button
-                                                   href={runs.url}
-                                                   target="_blank"
-                                                   rel="noopener norefferer"
-                                                   outline
-                                                   color="warning"
-                                                   size="sm"
-                                                >
-                                                   See on Raider.io
-                                                </Button>
-                                             </li>
-                                          </CardText>
-                                       </CardImgOverlay>
-                                    </Card>
-                                 </Col>
-                              ))}
-                           </div>
-                        </Col>
-                     
+                                          <li>
+                                             Affixes :
+                                             <Affixes run={runs} />
+                                          </li>
+
+                                          <li>
+                                             <Button
+                                                href={runs.url}
+                                                target="_blank"
+                                                rel="noopener norefferer"
+                                                outline
+                                                color="warning"
+                                                size="sm"
+                                             >
+                                                See on Raider.io
+                                             </Button>
+                                          </li>
+                                       </CardText>
+                                    </CardImgOverlay>
+                                 </Card>
+                              </Col>
+                           ))}
+                        </div>
+                     </Col>
                   </TabPane>
                   <TabPane tabId="2">
                      <Row>
@@ -377,14 +234,14 @@ export default class About extends React.Component {
                Battle For Azeroth is the lattest version of World of Warcraft, released the 08/14/18
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="mplus">
-               Mythic+ is a recent exciting thing in World of Warcraft. It is a new mode of content that offers players
-               an endlessly scaling challenge in 5-player dungeons. It can be really challenging and good if you don't
-               have 19 people to play with ! Depending on the dungeon, the time you used to complete it and the key
-               difficulty, it gives you points !
+               Mythic+ is a recent exciting thing in World of Warcraft. It is a new mode of content that offers players an
+               endlessly scaling challenge in 5-player dungeons. It can be really challenging and good if you don't have 19 people
+               to play with ! Depending on the dungeon, the time you used to complete it and the key difficulty, it gives you
+               points !
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="raid">
-               The term progression mean the number of boss of the actual raid you have killed with your group. A raid
-               is a huge 20-man instanced zone where there is several bosses (in general between 6 and 14).
+               The term progression mean the number of boss of the actual raid you have killed with your group. A raid is a huge
+               20-man instanced zone where there is several bosses (in general between 6 and 14).
             </UncontrolledTooltip>
          </ResponsiveLayout>
       );
