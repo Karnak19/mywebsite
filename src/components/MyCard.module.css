@@ -113,13 +113,11 @@ ul.icons li a:before {
 
 ul.icons li a:before {
    color: #ffffff;
-   text-shadow: 1.25px 0px 0px #c8cccf, -1.25px 0px 0px #c8cccf,
-      0px 1.25px 0px #c8cccf, 0px -1.25px 0px #c8cccf;
+   text-shadow: 1.25px 0px 0px #c8cccf, -1.25px 0px 0px #c8cccf, 0px 1.25px 0px #c8cccf, 0px -1.25px 0px #c8cccf;
 }
 
 ul.icons li a:hover:before {
-   text-shadow: 1.25px 0px 0px #335a5a, -1.25px 0px 0px #335a5a,
-      0px 1.25px 0px #335a5a, 0px -1.25px 0px #335a5a;
+   text-shadow: 1.25px 0px 0px #335a5a, -1.25px 0px 0px #335a5a, 0px 1.25px 0px #335a5a, 0px -1.25px 0px #335a5a;
 }
 
 ul.icons li a:before {
@@ -146,6 +144,7 @@ ul.icons li a:hover {
 }
 
 .hone {
+   font-family: champagnebold;
    font-size: 1.85rem;
    letter-spacing: 0.1em;
    margin: 0 0 0.525em 0;

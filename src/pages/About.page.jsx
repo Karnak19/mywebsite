@@ -184,6 +184,7 @@ export default class About extends React.Component {
                                           <li>Score : {runs.score}</li>
 
                                           <KeystoneUpgrade run={runs} />
+
                                           <li>
                                              Affixes :
                                              <Affixes run={runs} />
