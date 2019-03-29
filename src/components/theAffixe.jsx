@@ -4,7 +4,7 @@ import { UncontrolledTooltip } from "reactstrap";
 
 import styles from "./theAffixe.module.css";
 
-export default class TheFooter extends React.Component {
+export default class TheAffixe extends Component {
    constructor(props) {
       super(props);
 

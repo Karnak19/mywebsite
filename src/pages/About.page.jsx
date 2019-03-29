@@ -26,6 +26,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
 import Affixes from "../components/theAffixe.jsx";
 import MyProgress from "../components/myProgress.jsx";
+import MyCharacter from "../components/MyCharacter.jsx";
 import styles from "./About.page.module.css";
 
 export default class About extends React.Component {
@@ -67,9 +68,12 @@ export default class About extends React.Component {
    componentDidMount() {
       this.setState({ isPending: true });
       axios
-         .get("https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs%3Aall", {
-            headers: { Accept: "application/json" }
-         })
+         .get(
+            "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs%3Aall",
+            {
+               headers: { Accept: "application/json" }
+            }
+         )
          .then(response => {
             this.setState({
                raiderIo: response.data,
@@ -129,28 +133,13 @@ export default class About extends React.Component {
                            <span href="#" id="pveTooltip">
                               PvE
                            </span>
-                           . In End-game PvE, you need a lot of teamwork, to make a 20-man team cooperate in the same way. Being selfish does not work
-                           in this environment, as every player here will play a huge role to defeat each bosses.
+                           . In End-game PvE, you need a lot of teamwork, to make a 20-man team cooperate in the same way. Being
+                           selfish does not work in this environment, as every player here will play a huge role to defeat each
+                           bosses.
                         </p>
                      </Col>
                      <Col lg="12" sm="12" xs="12" style={{ listStyle: "none" }}>
-                        <div id="my_char">
-                           <h4>My Character :</h4>
-                           <li>
-                              <a href={this.state.raiderIo.profile_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: "1.4rem" }}>
-                                 {this.state.raiderIo.name}
-                              </a>
-                           </li>
-                           <li>
-                              <a href={this.state.raiderIo.profile_url} target="_blank" rel="noopener noreferrer">
-                                 <img src={this.state.raiderIo.thumbnail_url} alt={this.state.raiderIo.name} />
-                              </a>
-                           </li>
-                           <li>
-                              {this.state.raiderIo.race} {this.state.raiderIo.class}
-                           </li>
-                           <li>{this.state.raiderIo.faction} proud !</li>
-                        </div>
+                        <MyCharacter raiderIO={this.state.raiderIo} />
                         <hr />
                         <div id="my_progress">
                            <h4>
@@ -216,7 +205,14 @@ export default class About extends React.Component {
                                           </li>
 
                                           <li>
-                                             <Button href={runs.url} target="_blank" rel="noopener norefferer" outline color="warning" size="sm">
+                                             <Button
+                                                href={runs.url}
+                                                target="_blank"
+                                                rel="noopener norefferer"
+                                                outline
+                                                color="warning"
+                                                size="sm"
+                                             >
                                                 See on Raider.io
                                              </Button>
                                           </li>
@@ -252,13 +248,14 @@ export default class About extends React.Component {
                Battle For Azeroth is the lattest version of World of Warcraft, released the 08/14/18
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="mplus">
-               Mythic+ is a recent exciting thing in World of Warcraft. It is a new mode of content that offers players an endlessly scaling challenge
-               in 5-player dungeons. It can be really challenging and good if you don't have 19 people to play with ! Depending on the dungeon, the
-               time you used to complete it and the key difficulty, it gives you points !
+               Mythic+ is a recent exciting thing in World of Warcraft. It is a new mode of content that offers players an
+               endlessly scaling challenge in 5-player dungeons. It can be really challenging and good if you don't have 19 people
+               to play with ! Depending on the dungeon, the time you used to complete it and the key difficulty, it gives you
+               points !
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="raid">
-               The term progression mean the number of boss of the actual raid you have killed with your group. A raid is a huge 20-man instanced zone
-               where there is several bosses (in general between 6 and 14).
+               The term progression mean the number of boss of the actual raid you have killed with your group. A raid is a huge
+               20-man instanced zone where there is several bosses (in general between 6 and 14).
             </UncontrolledTooltip>
          </ResponsiveLayout>
       );
