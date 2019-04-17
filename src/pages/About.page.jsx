@@ -9,19 +9,16 @@ import {
    Row,
    Col,
    UncontrolledTooltip,
-   Progress,
    Card,
    CardText,
    CardTitle,
    CardImg,
    CardImgOverlay,
-   CardBody,
    Spinner
 } from "reactstrap";
 import classnames from "classnames";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import ResponsiveLayout from "../layouts/Responsive.layout.jsx";
 import Affixes from "../components/theAffixe.jsx";
@@ -38,9 +35,16 @@ export default class About extends React.Component {
       this.state = {
          tooltipOpen: false,
          activeTab: "1",
-         tabs: [{ id: "1", label: "World of Warcraft" }, { id: "2", label: "Ice Hockey" }, { id: "3", label: "ReactJS" }],
+         tabs: [
+            { id: "1", label: "World of Warcraft" },
+            { id: "2", label: "Ice Hockey" },
+            { id: "3", label: "Wild Code School" }
+         ],
          raiderIo: [],
          bestRuns: [],
+         myUldirProgress: [],
+         myBoDProgress: [],
+         myCrucibleProgress: [],
          dungeonPics: [
             { name: "AD", link: "../images/dungeons/AD.jpg" },
             { name: "FH", link: "../images/dungeons/FH.jpg" },
@@ -82,19 +86,20 @@ export default class About extends React.Component {
                isPending: false
             });
          })
-         .catch(() => this.setState({ isError: true }));
+         .catch(() => this.setState({ isError: true, isPending: false }));
       axios
          .get("https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=raid_progression", {
             headers: { Accept: "application/json" }
          })
          .then(response => {
             this.setState({
+               myCrucibleProgress: response.data.raid_progression["crucible-of-storms"],
                myUldirProgress: response.data.raid_progression["uldir"],
                myBoDProgress: response.data.raid_progression["battle-of-dazaralor"],
                isPending: false
             });
          })
-         .catch(() => this.setState({ isError: true }));
+         .catch(() => this.setState({ isError: true, isPending: false }));
    }
 
    render() {
@@ -152,7 +157,11 @@ export default class About extends React.Component {
                               </span>
                            </h4>
                            <Row>
-                              <MyProgress />
+                              <MyProgress
+                                 uldir={this.state.myUldirProgress}
+                                 bod={this.state.myBoDProgress}
+                                 crucible={this.state.myCrucibleProgress}
+                              />
                            </Row>
                         </div>
                         <hr />
@@ -171,7 +180,7 @@ export default class About extends React.Component {
                                  <Card inverse>
                                     {this.state.dungeonPics.map((pics, u) => {
                                        if (runs.short_name === pics.name) {
-                                          return <CardImg style={{ minHeight: "200px" }} src={pics.link} />;
+                                          return <CardImg style={{ minHeight: "200px" }} src={pics.link} key={u} />;
                                        }
                                     })}
                                     <CardImgOverlay className={styles.overlay}>

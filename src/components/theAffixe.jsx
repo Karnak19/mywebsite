@@ -37,7 +37,7 @@ export default class TheAffixe extends Component {
                   return this.state.affixes.map((aff, i) => {
                      const affixId = `affix${runAff.id}-${i}-${Math.ceil(Math.random() * 10000)}`;
                      return runAff.id === aff.id ? (
-                        <Fragment>
+                        <Fragment key={i}>
                            <a href={`https://wowhead.com/affix=` + runAff.id}>
                               <img src={aff.link} className={styles.affixe} id={affixId} />
                            </a>
