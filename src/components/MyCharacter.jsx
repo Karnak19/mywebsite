@@ -4,8 +4,14 @@ class MyCharacter extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         raiderIo: this.props.raiderIO
+         raiderIo: []
       };
+   }
+
+   componentDidMount() {
+      this.setState({
+         raiderIo: this.props.raiderIO
+      });
    }
    render() {
       return (
