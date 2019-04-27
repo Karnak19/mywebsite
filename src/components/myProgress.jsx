@@ -70,7 +70,7 @@ const MyProgress = ({ uldir, bod, crucible }) => {
                Mythic : {bod.mythic_bosses_killed} / {bod.total_bosses}
             </Progress>
          </Col>
-         <Col lg="4" sm={{ size: 6, offset: 3 }} xs="12">
+         <Col lg={{ size: 4, offset: 0 }} sm={{ size: 6, offset: 3 }} xs={{ size: 12, offset: 0 }}>
             <hr />
             <CardTitle tag="h3">Crucible of Storm</CardTitle>
 
