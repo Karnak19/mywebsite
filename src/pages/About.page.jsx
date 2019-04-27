@@ -73,32 +73,30 @@ export default class About extends React.Component {
    componentDidMount() {
       this.setState({ isPending: true });
       axios
-         .get(
-            "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs%3Aall",
-            {
-               headers: { Accept: "application/json" }
-            }
+         .all([
+            axios.get(
+               "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs%3Aall",
+               { headers: { Accept: "application/json" } }
+            ),
+            axios.get(
+               "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=raid_progression",
+               { headers: { Accept: "application/json" } }
+            )
+         ])
+         .then(
+            axios.spread((mplus, progress) => {
+               let mPlusRuns = mplus.data["mythic_plus_best_runs"];
+               delete mplus.data["mythic_plus_best_runs"];
+               this.setState({
+                  raiderIo: mplus.data,
+                  bestRuns: mPlusRuns,
+                  myCrucibleProgress: progress.data.raid_progression["crucible-of-storms"],
+                  myUldirProgress: progress.data.raid_progression["uldir"],
+                  myBoDProgress: progress.data.raid_progression["battle-of-dazaralor"],
+                  isPending: false
+               });
+            })
          )
-         .then(response => {
-            this.setState({
-               raiderIo: response.data,
-               bestRuns: response.data["mythic_plus_best_runs"],
-               isPending: false
-            });
-         })
-         .catch(() => this.setState({ isError: true, isPending: false }));
-      axios
-         .get("https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=raid_progression", {
-            headers: { Accept: "application/json" }
-         })
-         .then(response => {
-            this.setState({
-               myCrucibleProgress: response.data.raid_progression["crucible-of-storms"],
-               myUldirProgress: response.data.raid_progression["uldir"],
-               myBoDProgress: response.data.raid_progression["battle-of-dazaralor"],
-               isPending: false
-            });
-         })
          .catch(() => this.setState({ isError: true, isPending: false }));
    }
 
@@ -139,9 +137,9 @@ export default class About extends React.Component {
                            <span href="#" id="pveTooltip">
                               PvE
                            </span>
-                           . In End-game PvE, you need a lot of teamwork, to make a 20-man team cooperate in the same way. Being
-                           selfish does not work in this environment, as every player here will play a huge role to defeat each
-                           bosses.
+                           . In End-game PvE, you need a lot of teamwork, to make a 20-man team cooperate in the same
+                           way. Being selfish does not work in this environment, as every player here will play a huge
+                           role to defeat each bosses.
                         </p>
                      </Col>
                      <Col lg="12" sm="12" xs="12" style={{ listStyle: "none" }}>
@@ -243,14 +241,14 @@ export default class About extends React.Component {
                Battle For Azeroth is the lattest version of World of Warcraft, released the 08/14/18
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="mplus">
-               Mythic+ is a recent exciting thing in World of Warcraft. It is a new mode of content that offers players an
-               endlessly scaling challenge in 5-player dungeons. It can be really challenging and good if you don't have 19 people
-               to play with ! Depending on the dungeon, the time you used to complete it and the key difficulty, it gives you
-               points !
+               Mythic+ is a recent exciting thing in World of Warcraft. It is a new mode of content that offers players
+               an endlessly scaling challenge in 5-player dungeons. It can be really challenging and good if you don't
+               have 19 people to play with ! Depending on the dungeon, the time you used to complete it and the key
+               difficulty, it gives you points !
             </UncontrolledTooltip>
             <UncontrolledTooltip placement="bottom" target="raid">
-               The term progression mean the number of boss of the actual raid you have killed with your group. A raid is a huge
-               20-man instanced zone where there is several bosses (in general between 6 and 14).
+               The term progression mean the number of boss of the actual raid you have killed with your group. A raid
+               is a huge 20-man instanced zone where there is several bosses (in general between 6 and 14).
             </UncontrolledTooltip>
          </ResponsiveLayout>
       );
