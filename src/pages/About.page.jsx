@@ -104,7 +104,9 @@ export default class About extends React.Component {
       if (this.state.isPending) {
          return (
             <ResponsiveLayout>
-               <Spinner color="success" style={{ width: "3rem", height: "3rem" }} />
+               <section className={styles.container}>
+                  <Spinner color="success" style={{ width: "3rem", height: "3rem" }} />
+               </section>
             </ResponsiveLayout>
          );
       }
@@ -217,14 +219,14 @@ export default class About extends React.Component {
                         </div>
                      </Col>
                   </TabPane>
-                  <TabPane tabId="2">
+                  <TabPane tabId="2" className={styles.content}>
                      <Row>
                         <Col sm="12">
                            <h4>Soon</h4>
                         </Col>
                      </Row>
                   </TabPane>
-                  <TabPane tabId="3">
+                  <TabPane tabId="3" className={styles.content}>
                      <Row>
                         <Col sm="12">
                            <h4>Soon</h4>
