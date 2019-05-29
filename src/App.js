@@ -9,14 +9,12 @@ import Router from "./Router.jsx";
 
 library.add(fab, faFilePdf, faStar);
 
-class App extends Component {
-   render() {
-      return (
-         <div className="App">
-            <Router />
-         </div>
-      );
-   }
-}
+const App = () => {
+  return (
+    <div className="App">
+      <Router />
+    </div>
+  );
+};
 
 export default App;
