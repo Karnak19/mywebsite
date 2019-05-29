@@ -3,22 +3,20 @@
    padding: 4.5em 3em 3em 3em;
    border-radius: 4px;
    cursor: default;
+   width: 95vw;
    max-width: 95vw;
+   min-height: 95vh;
    /* max-height: 80vh; */
    opacity: 1;
    position: relative;
    text-align: center;
-   width: 95vw;
    /* height: 80vh; */
    list-style: none;
    text-decoration: none;
 }
 
 .content {
-   /* background-image: url("../assets/images/alliance.png"); */
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: center;
+   margin-top: 20px;
    min-height: 50vh;
 }
 
