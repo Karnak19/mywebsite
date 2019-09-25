@@ -1,4 +1,2 @@
 /*    /index.html  200
-
-# Redirect default Netlify subdomain to primary domain
 https://basile-vernouillet.netlify.com/* https://basile.vernouillet.dev/:splat 301!
