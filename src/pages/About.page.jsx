@@ -44,7 +44,7 @@ export default class About extends React.Component {
       bestRuns: [],
       myUldirProgress: [],
       myBoDProgress: [],
-      myCrucibleProgress: [],
+      myEternalPalaceProgress: [],
       dungeonPics: [
         { name: "AD", link: "../images/dungeons/AD.jpg" },
         { name: "FH", link: "../images/dungeons/FH.jpg" },
@@ -75,7 +75,7 @@ export default class About extends React.Component {
     axios
       .all([
         axios.get(
-          "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs%3Aall",
+          "https://raider.io/api/v1/characters/profile?region=eu&realm=hyjal&name=raquette&fields=mythic_plus_best_runs%3Aall&raid_progression",
           { headers: { Accept: "application/json" } }
         ),
         axios.get(
@@ -92,8 +92,8 @@ export default class About extends React.Component {
           this.setState({
             raiderIo: mplus.data,
             bestRuns: mPlusRuns,
-            myCrucibleProgress:
-              progress.data.raid_progression["crucible-of-storms"],
+            myEternalPalaceProgress:
+              progress.data.raid_progression["the-eternal-palace"],
             myUldirProgress: progress.data.raid_progression["uldir"],
             myBoDProgress:
               progress.data.raid_progression["battle-of-dazaralor"],
@@ -172,7 +172,7 @@ export default class About extends React.Component {
                     <MyProgress
                       uldir={this.state.myUldirProgress}
                       bod={this.state.myBoDProgress}
-                      crucible={this.state.myCrucibleProgress}
+                      crucible={this.state.myEternalPalaceProgress}
                     />
                   </Row>
                 </div>

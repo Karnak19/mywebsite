@@ -1,9 +1,9 @@
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
   from = "https://basile-vernouillet.netlify.com/*"
   to = "https://basile.vernouillet.dev/:splat"
   status = 301
+  
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
