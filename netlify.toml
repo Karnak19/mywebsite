@@ -1,6 +1,13 @@
 [[redirects]]
+  from = "https://basile-vernouillet.netlify.com"
+  to = "https://basile.vernouillet.dev"
+  force = true
+  status = 301
+
+[[redirects]]
   from = "https://basile-vernouillet.netlify.com/*"
   to = "https://basile.vernouillet.dev/:splat"
+  force = true
   status = 301
   
 [[redirects]]
